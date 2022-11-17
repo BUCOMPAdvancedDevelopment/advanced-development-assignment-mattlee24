@@ -4,8 +4,7 @@
 body {
     width: 100%;
     height: 100%;
-    background-image: url("https://www.pixel4k.com/wp-content/uploads/2018/12/red-dead-redemption-2-minimal-art-4k_1545589347.jpg");
-    background-size: cover;
+    background-color: black;
 }
 p { 
     font-size: 1.2em;   
@@ -16,12 +15,87 @@ p {
     padding: 0;
     width: 100%;
 }
-.mainDiv-home {
+.topDiv-home{
+    text-align: center;
+}
+.topDiv-home h1{
+    color: white;
+    font-weight: bold;
+    font-size: 55px;
+}
+.topDiv-home p{
+    color: white;
+}
+.topDiv-home a{
+    color: greenyellow;
+    font-size: 20px;
+    font-weight: bold;
+}
+.topDiv-home a:hover{
+    cursor: pointer;
+}
+.topContainer-home{
+    display: flex;
+    margin-top: 5rem;
+    margin-bottom: 10rem;
+}
+.mainDiv-home-pic {
+    flex: 2;
+}
+.mainDiv-home-text {
+    flex: 1;
+    padding-right: 15rem;
+    padding-left: 3rem;
+    padding-top: 1rem;
+    padding-bottom: 3rem;
+    margin-right: -10rem;
+    background-color: rgb(40, 41, 43);
+    color: white;
+    align-self: center;
+}
+.mainDiv-home-text h1{
+    font-weight: bold;
+}
+.mainDiv-home-pic-2 {
+    flex: 2;
+}
+.mainDiv-home-text-2 {
+    flex: 1;
+    padding-left: 15rem;
+    padding-right: 3rem;
+    padding-top: 1rem;
+    padding-bottom: 3rem;
+    margin-left: -10rem;
+    background-color: rgb(40, 41, 43);
+    color: white;
+    align-self: center;
+    text-align: right;
+}
+.mainDiv-home-text h1{
+    font-weight: bold;
+}
+.secondDiv-home {
     height: 300px;
+    width: 45%;
+    float: left;
+    position: relative;
+    margin: auto;
+    background-color: aliceblue;
+    -webkit-box-shadow: 0px 9px 8px -4px rgba(0,0,0,0.48);
+    -moz-box-shadow: 0px 9px 8px -4px rgba(0,0,0,0.48);
+    box-shadow: 0px 9px 8px -4px rgba(0,0,0,0.48);
+    border-radius: 25px;
+}
+.thirdDiv-home {
+    height: 300px;
+    width: 45%;
     position: absolute;
-    left: 0px;
-    right: 0px;
-    top: 5rem;
+    float: left;
+    background-color: aliceblue;
+    -webkit-box-shadow: 0px 9px 8px -4px rgba(0,0,0,0.48);
+    -moz-box-shadow: 0px 9px 8px -4px rgba(0,0,0,0.48);
+    box-shadow: 0px 9px 8px -4px rgba(0,0,0,0.48);
+    border-radius: 25px;
 }
 .pageTitle {
     position: absolute; 
@@ -37,30 +111,30 @@ p {
     -webkit-border-radius: 0;
     -moz-border-radius: 0;
     border-radius: 0;
-    background-color: rgb(251,218,195);
+    background-color: rgb(40, 41, 43);
     border-width: 0;
     -webkit-box-shadow: 0px 9px 8px -4px rgba(0,0,0,0.48);
     -moz-box-shadow: 0px 9px 8px -4px rgba(0,0,0,0.48);
     box-shadow: 0px 9px 8px -4px rgba(0,0,0,0.48);
 }
 .navbar .collapse ul li a {
-    color: rgb(48,13,40);
+    color: rgb(255, 255, 255);
     font-size: 15;
     font-weight: bold;
 }
 .navbar .collapse ul .active .navlink {
-    background-color: rgb(245, 231, 222);
-    color: rgb(48,13,40);
+    background-color: rgb(83, 79, 77);
+    color: rgb(255, 255, 255);
     font-size: 15;
     font-weight: bold;
 }
 .navbar .collapse .navbar-header .navbar-brand {
-    color: rgb(48,13,40);
+    color: rgb(255, 255, 255);
     background-repeat: no-repeat;
-    padding-left:15px;
-    padding-right:15px;
+    padding-left:10px;
+    padding-right:10px;
     font-family: 'Exo';
-    font-size: 50px;
+    font-size: 40px;
     transform: skew(-15deg);
     letter-spacing: 0.01em;
 }
@@ -68,17 +142,17 @@ p {
     font-family: 'Mr Dafoe';
     font-size: 20px;
     color: white;
-    text-shadow: 0 0 0.05em #fff, 0 0 0.2em rgb(251,218,195), 0 0 0.3em rgb(251,218,195);
+    text-shadow: 0 0 0.05em #fff, 0 0 0.2em black, 0 0 0.3em black;
     transform: rotate(-2deg);
     position: absolute;
-    top: 3rem;
-    left: 24rem;
+    top: 2.5rem;
+    left: 20rem;
     letter-spacing: 0.1em;
     text-decoration: underline;
-    text-decoration-color: white;          
+    text-decoration-color: white;    
 }
 .navbar .collapse ul {
-    position: absolute;
+    position: relative;
     left: 50%;
     transform: translatex(-50%);
 }

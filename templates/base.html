@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="Advanced Development Coursework">
+        <meta name="author" content="Xin Lu">
+        <!--<link rel="icon" href="TODO">-->
+        <!-- Favicons (http://realfavicongenerator.net)
+        TODO -->
+        <!-- Open Graph
+        TODO -->
+        <title>Advanced Development Coursework</title>
+        <!-- Bootstrap core CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <!-- Custom styles -->
+        <link href="static/custom.css" rel="stylesheet">
+    </head>
+    <!-- Jinja2 stuff related to generating nav and setting active state. Add more pages here! -->
+    {% set navigation_bar = [('/', 'home', 'Home'), ('/about', 'about', 'About')] -%} 
+    {% set navigation_bar_right = [('/register', 'register', 'Sign Up'), ('/login', 'login', 'Login')] -%} 
+    <body>
+        <nav class="navbar navbar-inverse navbar-expand-md ">
+            <div class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                    {% for href, id, caption in navigation_bar %} 
+                    {% if id == active_page %} 
+                    <li class="active"><a class="navlink" href="{{ href|e }}">{{ caption|e }}</a></li>
+                    {% else %} 
+                    <li>
+                    <a href="{{ href|e }}">{{ caption|e }}</a>
+                    </li>
+                    {% endif %} 
+                    {% endfor %} 
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="#">GameZone</a>
+                        <a class="navbar-brand-sub" href="#">Game Store</a>
+                    </div>
+                    {% for href, id, caption in navigation_bar_right %} 
+                    {% if id == active_page %} 
+                    <li class="active"><a class="navlink" href="{{ href|e }}">{{ caption|e }}</a></li>
+                    {% else %} 
+                    <li>
+                    <a href="{{ href|e }}">{{ caption|e }}</a>
+                    </li>
+                    {% endif %} 
+                    {% endfor %} 
+                </ul>
+            </div>
+        </nav>    
+        <main role="main" class="container">
+            <!-- Content -->
+            {% block body %} 
+            {% endblock %} 
+        </main><!-- /.container -->
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="https://code.jquery.com/jquery3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    </body>    
+</html>

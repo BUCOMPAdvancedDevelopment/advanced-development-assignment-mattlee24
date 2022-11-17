@@ -57,7 +57,7 @@ p {
 .navbar .collapse .navbar-header .navbar-brand {
     color: rgb(48,13,40);
     background-repeat: no-repeat;
-    padding-left:30px;
+    padding-left:15px;
     padding-right:15px;
     font-family: 'Exo';
     font-size: 50px;
@@ -71,9 +71,11 @@ p {
     text-shadow: 0 0 0.05em #fff, 0 0 0.2em rgb(251,218,195), 0 0 0.3em rgb(251,218,195);
     transform: rotate(-2deg);
     position: absolute;
-    top: 2.5rem;
-    left: 22rem;
+    top: 3rem;
+    left: 24rem;
     letter-spacing: 0.1em;
+    text-decoration: underline;
+    text-decoration-color: white;          
 }
 .navbar .collapse ul {
     position: absolute;

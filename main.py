@@ -1,9 +1,15 @@
 import datetime
+import os
+import logging
 
 from flask import Flask, render_template, request
 from google.auth.transport import requests
 from google.cloud import datastore
 import google.oauth2.id_token
+
+#Enable running on local dev environment
+os.environ.setdefault("GCLOUD_PROJECT", "ad-364515")
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = (r"C:\Users\matth\Desktop\AdLocalCoursework\venv\application_default_credentials.json")
 
 firebase_request_adapter = requests.Request()
 
@@ -63,9 +69,7 @@ def root():
             # verification checks fail.
             error_message = str(exc)
 
-    return render_template(
-        'index.html',
-        user_data=claims, error_message=error_message, times=times)
+    return render_template('index.html', user_data=claims, error_message=error_message, times=times)
 
 @app.route('/home') 
 def home(): 
@@ -82,6 +86,35 @@ def register():
 @app.route('/login') 
 def login(): 
  return render_template('login.html') 
+
+# [END form] 
+# [START submitted]
+
+@app.route('/submitted', methods=['POST']) 
+def submitted_form(): 
+ name = request.form['name'] 
+ email = request.form['email'] 
+ site = request.form['site_url'] 
+ comments = request.form['comments'] 
+ # [END submitted]
+ # [START render_template]
+ return render_template( 
+ 'submitted_form.html', 
+ name=name, 
+ email=email, 
+ site=site, 
+ comments=comments) 
+ # [END render_template]
+
+@app.errorhandler(500) 
+def server_error(e): 
+ # Log the error and stacktrace.
+ logging.exception('An error occurred during a request.') 
+ return 'An internal error occurred.', 500
+
+@app.errorhandler(404) 
+def page_not_found(error): 
+ return render_template('404.html'), 404
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App

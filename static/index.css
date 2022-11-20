@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Mr+Dafoe&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Exo:wght@900&display=swap');
+
+body{
+    background-color: black;
+    overflow-x: hidden;
+}
+.logoDiv{
+    text-align: center;
+}   
+h1 {
+    color: white;
+    text-align: center;
+}
+.brand{
+    color: rgb(255, 255, 255);
+    background-repeat: no-repeat;
+    padding-left:10px;
+    padding-right:10px;
+    font-family: 'Exo';
+    font-size: 80px;
+    transform: skew(-15deg);
+    letter-spacing: 0.01em;
+    margin-top: -5px;
+    margin-bottom: -80px;
+}
+.brand-sub{
+    font-family: 'Mr Dafoe';
+    font-size: 40px;
+    color: white;
+    text-shadow: 0 0 0.05em #fff, 0 0 0.2em black, 0 0 0.3em black;
+    transform: rotate(-2deg);
+    position: relative;
+    letter-spacing: 0.1em;
+    text-decoration: underline;
+    text-decoration-color: white;
+    text-align: center;
+}
+.firebaseui-container {
+    background-color: rgb(40, 41, 43);
+    position: absolute !important;
+    top: 25%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    margin: 0;
+    left: 50%;
+    -ms-transform: translateX(-50%);
+    transform: translateX(-50%);
+    padding-top: 15px;
+}
+.firebaseui-button {
+    background-color: rgb(62, 63, 66) !important;
+    color: white !important;
+    font-weight: bold;
+}
+.firebaseui-id-secondary-link.firebaseui-button{
+    display: none;
+}
+.firebaseui-title{
+    color: white;
+    text-align: center;
+    font-weight: bold;
+}
+.firebaseui-label {
+    color: rgb(156, 152, 152);
+}
+.firebaseui-input,
+.firebaseui-input-invalid {
+  color: rgba(255, 255, 255);
+}
+.firebaseui-textfield.mdl-textfield .firebaseui-label:after {
+    background-color: white !important;
+}
+p {
+    color: white;
+}
+.dt {
+    color: white;
+}
+

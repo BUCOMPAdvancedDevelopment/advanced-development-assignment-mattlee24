@@ -10,7 +10,7 @@
         environment as well as previously released titles that have been 
         rebuilt specifically for Xbox Series X|S.</p>
     <a>See more <span class="glyphicon glyphicon-chevron-right"></span></a>
-</div>
+</div>                                           
 <div class="topContainer-home">
     <div class="mainDiv-home-pic">
         <img class="coverImage" src="https://wallpapercave.com/wp/wp11162731.jpg">
@@ -66,6 +66,41 @@
     <div class="mainDiv-home-pic-2">
         <img class="coverImage" src="https://assets.xboxservices.com/assets/fa/9a/fa9af5ee-9854-4995-b0cf-e281fc832069.jpg?n=FIFA-23_GLP-Page-Hero-1084_1920x1080.jpg">
     </div>
+    <button id="sign-out" hidden=true onclick="signOut()">sign Out</button>
 </div>
-
+<div class="topContainer-home">
+    <div class="mainDiv-home-pic">
+        <img class="coverImage" src="https://rare-gallery.com/mocahbig/396528-wallpaper-fortnite-chapter-2-season-6-battle-pass.jpg">
+    </div>
+    <div class="mainDiv-home-text">
+        <h1>All Your Favourtie Games, In One Place</h1>
+        <p>Games featuring the Optimised for Xbox Series X|S 
+            icon will showcase unparalleled load-times, heightened 
+            visuals and steadier framerates at up to 120FPS. These include new 
+            titles built natively using the Xbox Series X|S development 
+            environment as well as previously released titles that have been 
+            rebuilt specifically for Xbox Series X|S.</p>
+    </div>
+</div>
+<div class="topContainer-home">
+    <div class="mainDiv-home-text-2">
+        <h1>All Your Favourtie Games, In One Place</h1>
+        <p>Games featuring the Optimised for Xbox Series X|S 
+            icon will showcase unparalleled load-times, heightened 
+            visuals and steadier framerates at up to 120FPS. These include new 
+            titles built natively using the Xbox Series X|S development 
+            environment as well as previously released titles that have been 
+            rebuilt specifically for Xbox Series X|S.</p>
+    </div>
+    <div class="mainDiv-home-pic-2">
+        <img class="coverImage" src="https://images4.alphacoders.com/115/thumb-1920-1151249.jpg">
+    </div>
+</div>
+<script>
+    function signOut(){
+        firebase.auth().signOut();
+        window.location.href = "/";
+    }
+</script>
 {% endblock %} 
+

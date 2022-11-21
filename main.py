@@ -8,6 +8,7 @@ from google.cloud import datastore
 import google.oauth2.id_token
 
 #Enable running on local dev environment
+#Always comment lines 12 and 13 before running on the cloud, otherwise the app will NOT work
 os.environ.setdefault("GCLOUD_PROJECT", "ad-364515")
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = (r"C:\Users\matth\Desktop\AdLocalCoursework\venv\application_default_credentials.json")
 
@@ -53,11 +54,7 @@ def root():
 
     if id_token:
         try:
-            # Verify the token against the Firebase Auth API. This example
-            # verifies the token on each page load. For improved performance,
-            # some applications may wish to cache results in an encrypted
-            # session store (see for instance
-            # http://flask.pocoo.org/docs/1.0/quickstart/#sessions).
+            # Verify the token against the Firebase Auth API
             claims = google.oauth2.id_token.verify_firebase_token(
                 id_token, firebase_request_adapter)
 
@@ -79,42 +76,25 @@ def home():
 def about(): 
  return render_template('about.html') 
 
-@app.route('/register') 
-def register(): 
- return render_template('register.html') 
+@app.route('/games') 
+def games(): 
+ return render_template('games.html') 
 
-@app.route('/login') 
-def login(): 
- return render_template('login.html') 
+@app.route('/account') 
+def account(): 
+     # Verify Firebase auth.
+    id_token = request.cookies.get("token")
+    error_message = None
+    claims = None
 
-# [END form] 
-# [START submitted]
+    if id_token:
+        try:
+            claims = google.oauth2.id_token.verify_firebase_token(
+                id_token, firebase_request_adapter)
 
-@app.route('/submitted', methods=['POST']) 
-def submitted_form(): 
- name = request.form['name'] 
- email = request.form['email'] 
- site = request.form['site_url'] 
- comments = request.form['comments'] 
- # [END submitted]
- # [START render_template]
- return render_template( 
- 'submitted_form.html', 
- name=name, 
- email=email, 
- site=site, 
- comments=comments) 
- # [END render_template]
-
-@app.errorhandler(500) 
-def server_error(e): 
- # Log the error and stacktrace.
- logging.exception('An error occurred during a request.') 
- return 'An internal error occurred.', 500
-
-@app.errorhandler(404) 
-def page_not_found(error): 
- return render_template('404.html'), 404
+        except ValueError as exc:
+            error_message = str(exc)
+    return render_template('account.html', user_data=claims) 
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App
@@ -125,4 +105,4 @@ if __name__ == '__main__':
     # the "static" directory. See:
     # http://flask.pocoo.org/docs/1.0/quickstart/#static-files. Once deployed,
     # App Engine itself will serve those files as configured in app.yaml.
-    app.run(host='127.0.0.1', port=8080, debug=True)
+    app.run(host='0.0.0.0', port=5000, debug=True)

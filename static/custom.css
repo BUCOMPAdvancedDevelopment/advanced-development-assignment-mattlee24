@@ -7,15 +7,36 @@ body {
     background-color: black;
     max-width: 100%;
     overflow-x: hidden;
+    position: relative
 }
 p { 
-    font-size: 1.2em;   
+    font-size: 1.2em;
+    color: white;   
 } 
+#sign-out{
+    position: absolute;
+    right: 2.5rem;
+    top: 1rem;
+    cursor: pointer;
+}
+.glyphicon.glyphicon-log-out {
+    font-size: 30px;
+    color: greenyellow;
+}
+.glyphicon.glyphicon-log-out:hover {
+    font-size: 30px;
+    color: red;
+}
 .starter-template { 
     text-align: center; 
     margin: 0;
     padding: 0;
     width: 100%;
+}
+.conentDiv{
+    width: 100%;
+    position: absolute;
+    left: 0;
 }
 .topDiv-home{
     text-align: center;
@@ -27,6 +48,7 @@ p {
 }
 .topDiv-home p{
     color: white;
+    max-height: 100%;
 }
 .topDiv-home a{
     color: greenyellow;
@@ -40,40 +62,49 @@ p {
     display: flex;
     margin-top: 5rem;
     margin-bottom: 10rem;
+    width: 100%;
 }
 .mainDiv-home-pic {
-    flex: 2;
+    flex: 3;
+    margin-left: 5rem;
+    max-height: 100%;
 }
 .mainDiv-home-text {
     flex: 1;
     padding-right: 15rem;
     padding-left: 3rem;
-    padding-top: 1rem;
-    padding-bottom: 3rem;
+    padding-top: 15rem;
+    padding-bottom: 15rem;
     margin-right: -10rem;
     background-color: rgb(40, 41, 43);
     color: white;
     align-self: center;
+    margin-top: 10rem;
+    margin-bottom: 10rem;
 }
-.mainDiv-home-text h1{
+.mainDiv-home-text h1 {
     font-weight: bold;
 }
 .mainDiv-home-pic-2 {
-    flex: 2;
+    flex: 3;
+    max-height: 100%;
+    margin-right: 5rem;
 }
 .mainDiv-home-text-2 {
     flex: 1;
     padding-left: 15rem;
     padding-right: 3rem;
-    padding-top: 1rem;
-    padding-bottom: 3rem;
+    padding-top: 15rem;
+    padding-bottom: 15rem;
     margin-left: -10rem;
     background-color: rgb(40, 41, 43);
     color: white;
     align-self: center;
     text-align: right;
-}
-.mainDiv-home-text h1{
+    margin-top: 10rem;
+    margin-bottom: 10rem;
+} 
+.mainDiv-home-text-2 h1 {
     font-weight: bold;
 }
 .secondDiv-home {
@@ -106,8 +137,8 @@ p {
     font-weight: bold;
 }
 .coverImage {
-    width: 100%;
-    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
 }
 .navbar {
     -webkit-border-radius: 0;
@@ -119,28 +150,28 @@ p {
     -moz-box-shadow: 0px 9px 8px -4px rgba(0,0,0,0.48);
     box-shadow: 0px 9px 8px -4px rgba(0,0,0,0.48);
 }
-.navbar .collapse ul li a {
+.navbar .container-fluid ul li a {
     color: rgb(255, 255, 255);
     font-size: 15;
     font-weight: bold;
 }
-.navbar .collapse ul .active .navlink {
+.navbar .container-fluid ul .active .navlink {
     background-color: rgb(83, 79, 77);
     color: rgb(255, 255, 255);
     font-size: 15;
     font-weight: bold;
 }
-.navbar .collapse .navbar-header .navbar-brand {
+.navbar .container-fluid .navbar-header .navbar-brand {
     color: rgb(255, 255, 255);
     background-repeat: no-repeat;
-    padding-left:10px;
-    padding-right:10px;
+    padding-left: 20px;
+    padding-right: 5px; 
     font-family: 'Exo';
     font-size: 40px;
     transform: skew(-15deg);
     letter-spacing: 0.01em;
 }
-.navbar .collapse .navbar-header .navbar-brand-sub {
+.navbar .container-fluid .navbar-header .navbar-brand-sub {
     font-family: 'Mr Dafoe';
     font-size: 20px;
     color: white;
@@ -153,8 +184,51 @@ p {
     text-decoration: underline;
     text-decoration-color: white;    
 }
-.navbar .collapse ul {
+.navbar .container-fluid ul {
     position: relative;
     left: 50%;
     transform: translatex(-50%);
+}
+@media screen and (max-width: 770px) {
+    body {
+        background-color: black;
+    }
+    .nav {
+        display: none;
+    }
+    .conentDiv{
+        display: none;
+    }
+}
+@media (max-width: 1500px) {
+    .topContainer-home{
+        max-width: 100%;
+    }
+    .mainDiv-home-text {
+        flex: 1;
+        padding-top: 5rem;
+        padding-bottom: 5rem;
+        margin-top: 5rem;
+        margin-bottom: 5rem;
+        font-size: 10px;
+
+    }
+    .mainDiv-home-text-2 {
+        flex: 1;
+        padding-top: 5rem;
+        padding-bottom: 5rem;
+        margin-top: 5rem;
+        margin-bottom: 5rem;
+        font-size: 10px;
+    } 
+    .mainDiv-home-pic {
+        flex: 2;
+        max-height: 100%;
+        font-size: 10px;
+    }
+    .mainDiv-home-pic-2 {
+        flex: 2;
+        max-height: 100%;
+        font-size: 10px;
+    }
 }

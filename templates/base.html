@@ -15,10 +15,10 @@
     </head>
     <!-- Jinja2 stuff related to generating nav and setting active state. Add more pages here! -->
     {% set navigation_bar = [('/home', 'home', 'Home'), ('/about', 'about', 'About')] -%} 
-    {% set navigation_bar_right = [('/register', 'register', 'Sign Up'), ('/login', 'login', 'Login')] -%} 
+    {% set navigation_bar_right = [('/games', 'games', 'Games'), ('/account', 'account', 'Account')] -%} 
     <body>
         <nav class="navbar navbar-inverse">
-            <div class="collapse navbar-collapse">
+            <div class="container-fluid">
                 <ul class="nav navbar-nav">
                     {% for href, id, caption in navigation_bar %} 
                     {% if id == active_page %} 
@@ -45,6 +45,7 @@
                 </ul>
             </div>
         </nav>    
+        <a id="sign-out" hidden=true onclick="signOut()"><span class="glyphicon glyphicon-log-out"></span></a>
         <main role="main" class="container">
             <!-- Content -->
             {% block body %} 
@@ -57,7 +58,6 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
         <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-app.js"></script>
-
         <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-auth.js"></script>
 
     <!-- TODO: Add SDKs for Firebase products that you want to use
@@ -86,6 +86,12 @@
                 console.log("No user signed in")
             }
         });
+        </script>
+        <script>
+            function signOut(){
+                firebase.auth().signOut();
+                window.location.href = "/";
+            }
         </script>
     </body>    
 </html>

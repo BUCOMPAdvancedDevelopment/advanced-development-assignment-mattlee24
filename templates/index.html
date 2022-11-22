@@ -92,9 +92,9 @@
             firebase.auth.GoogleAuthProvider.PROVIDER_ID,
             firebase.auth.GithubAuthProvider.PROVIDER_ID,
         ],
-        };
-        firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
+    };
+    firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
         // Show user signed in screen. Reset if user just signed in. (Single page app)
         document.getElementById('login-info').style.display = 'block';
         document.getElementById('sign-out').style.display = 'block';
@@ -106,15 +106,15 @@
         // token (which is verified server-side) in a cookie; do not add other
         // user information.
         document.cookie = "token=" + token;
-        });
-        } else {
-            // Initialize the FirebaseUI Widget using Firebase.
-            var ui = new firebaseui.auth.AuthUI(firebase.auth());
-            // No user signed in, render sign-in UI.
-            ui.start('#firebaseui-auth-container', uiConfig);
-            document.getElementById('login-info').style.display = 'none';
-            document.getElementById('sign-out').style.display = 'none';
-         }
-        });
+    });
+    } else {
+        // Initialize the FirebaseUI Widget using Firebase.
+        var ui = new firebaseui.auth.AuthUI(firebase.auth());
+        // No user signed in, render sign-in UI.
+        ui.start('#firebaseui-auth-container', uiConfig);
+        document.getElementById('login-info').style.display = 'none';
+        document.getElementById('sign-out').style.display = 'none';
+        }
+    });
   </script>
 </html>

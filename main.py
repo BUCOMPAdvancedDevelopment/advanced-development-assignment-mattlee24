@@ -9,8 +9,8 @@ import google.oauth2.id_token
 
 #Enable running on local dev environment
 #Always comment lines 12 and 13 before running on the cloud, otherwise the app will NOT work
-# os.environ.setdefault("GCLOUD_PROJECT", "ad-364515")
-# os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = (r"C:\Users\matth\Desktop\AdLocalCoursework\venv\application_default_credentials.json")
+os.environ.setdefault("GCLOUD_PROJECT", "ad-364515")
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = (r"C:\Users\matth\Desktop\AdLocalCoursework\venv\application_default_credentials.json")
 
 firebase_request_adapter = requests.Request()
 

@@ -31,7 +31,6 @@
     <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.5.0/firebase-ui-auth.css">
     <!-- [END gae_python3_auth_include_firebaseui] -->
     <!-- [END gae_python38_auth_include_firebaseui] -->
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
     <link type="text/css" rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
 
   </head>
@@ -89,13 +88,6 @@
     var ui = new firebaseui.auth.AuthUI(firebase.auth());
 
     var uiConfig = {
-      callbacks: {
-          signInSuccessWithAuthResult: function(authResult, redirectUrl) {
-            // document.getElementById('firebaseui-auth-container').style.display = 'none';
-            // document.getElementById('firebaseui-auth-container').style.display = 'block';
-            return true;
-          },
-        },
         signInSuccessUrl: '/home',
         signInOptions: [
             firebase.auth.EmailAuthProvider.PROVIDER_ID,

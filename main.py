@@ -82,19 +82,7 @@ def games():
 
 @app.route('/account') 
 def account(): 
-     # Verify Firebase auth.
-    id_token = request.cookies.get("token")
-    error_message = None
-    claims = None
-
-    if id_token:
-        try:
-            claims = google.oauth2.id_token.verify_firebase_token(
-                id_token, firebase_request_adapter)
-
-        except ValueError as exc:
-            error_message = str(exc)
-    return render_template('account.html', user_data=claims) 
+    return render_template('account.html') 
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App

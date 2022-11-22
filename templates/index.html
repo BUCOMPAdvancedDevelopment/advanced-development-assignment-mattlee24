@@ -93,7 +93,6 @@
             firebase.auth.EmailAuthProvider.PROVIDER_ID,
             firebase.auth.GoogleAuthProvider.PROVIDER_ID,
             firebase.auth.GithubAuthProvider.PROVIDER_ID,
-            firebase.auth.signInAnonymously
           ],
         };
         
@@ -103,6 +102,7 @@
           ui.reset();
           document.getElementById('login-info').style.display = 'block';
           document.getElementById('sign-out').style.display = 'block';
+          console.log(`Signed in as ${user.displayName} (${user.email})`);
           user.getIdToken().then(function (token) {
           // Add the token to the browser's cookies. The server will then be
           // able to verify the token against the API.

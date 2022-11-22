@@ -1,0 +1,234 @@
+@import url('https://fonts.googleapis.com/css2?family=Mr+Dafoe&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Exo:wght@900&display=swap');
+
+body {
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    max-width: 100%;
+    overflow-x: hidden;
+    position: relative
+}
+p { 
+    font-size: 1.2em;
+    color: white;   
+} 
+#sign-out{
+    position: absolute;
+    right: 2.5rem;
+    top: 1rem;
+    cursor: pointer;
+}
+.glyphicon.glyphicon-log-out {
+    font-size: 30px;
+    color: greenyellow;
+}
+.glyphicon.glyphicon-log-out:hover {
+    font-size: 30px;
+    color: red;
+}
+.starter-template { 
+    text-align: center; 
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+.conentDiv{
+    width: 100%;
+    position: absolute;
+    left: 0;
+}
+.topDiv-home{
+    text-align: center;
+}
+.topDiv-home h1{
+    color: white;
+    font-weight: bold;
+    font-size: 55px;
+}
+.topDiv-home p{
+    color: white;
+    max-height: 100%;
+}
+.topDiv-home a{
+    color: greenyellow;
+    font-size: 20px;
+    font-weight: bold;
+}
+.topDiv-home a:hover{
+    cursor: pointer;
+}
+.topContainer-home{
+    display: flex;
+    margin-top: 5rem;
+    margin-bottom: 10rem;
+    width: 100%;
+}
+.mainDiv-home-pic {
+    flex: 3;
+    margin-left: 5rem;
+    max-height: 100%;
+}
+.mainDiv-home-text {
+    flex: 1;
+    padding-right: 15rem;
+    padding-left: 3rem;
+    padding-top: 15rem;
+    padding-bottom: 15rem;
+    margin-right: -10rem;
+    background-color: rgb(40, 41, 43);
+    color: white;
+    align-self: center;
+    margin-top: 10rem;
+    margin-bottom: 10rem;
+}
+.mainDiv-home-text h1 {
+    font-weight: bold;
+}
+.mainDiv-home-pic-2 {
+    flex: 3;
+    max-height: 100%;
+    margin-right: 5rem;
+}
+.mainDiv-home-text-2 {
+    flex: 1;
+    padding-left: 15rem;
+    padding-right: 3rem;
+    padding-top: 15rem;
+    padding-bottom: 15rem;
+    margin-left: -10rem;
+    background-color: rgb(40, 41, 43);
+    color: white;
+    align-self: center;
+    text-align: right;
+    margin-top: 10rem;
+    margin-bottom: 10rem;
+} 
+.mainDiv-home-text-2 h1 {
+    font-weight: bold;
+}
+.secondDiv-home {
+    height: 300px;
+    width: 45%;
+    float: left;
+    position: relative;
+    margin: auto;
+    background-color: aliceblue;
+    -webkit-box-shadow: 0px 9px 8px -4px rgba(0,0,0,0.48);
+    -moz-box-shadow: 0px 9px 8px -4px rgba(0,0,0,0.48);
+    box-shadow: 0px 9px 8px -4px rgba(0,0,0,0.48);
+    border-radius: 25px;
+}
+.thirdDiv-home {
+    height: 300px;
+    width: 45%;
+    position: absolute;
+    float: left;
+    background-color: aliceblue;
+    -webkit-box-shadow: 0px 9px 8px -4px rgba(0,0,0,0.48);
+    -moz-box-shadow: 0px 9px 8px -4px rgba(0,0,0,0.48);
+    box-shadow: 0px 9px 8px -4px rgba(0,0,0,0.48);
+    border-radius: 25px;
+}
+.pageTitle {
+    position: absolute; 
+    margin-top: 10rem;
+    color: white;
+    font-weight: bold;
+}
+.coverImage {
+    max-width: 100%;
+    max-height: 100%;
+}
+.navbar {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+    background-color: rgb(40, 41, 43);
+    border-width: 0;
+    -webkit-box-shadow: 0px 9px 8px -4px rgba(0,0,0,0.48);
+    -moz-box-shadow: 0px 9px 8px -4px rgba(0,0,0,0.48);
+    box-shadow: 0px 9px 8px -4px rgba(0,0,0,0.48);
+}
+.navbar .container-fluid ul li a {
+    color: rgb(255, 255, 255);
+    font-size: 15;
+    font-weight: bold;
+}
+.navbar .container-fluid ul .active .navlink {
+    background-color: rgb(83, 79, 77);
+    color: rgb(255, 255, 255);
+    font-size: 15;
+    font-weight: bold;
+}
+.navbar .container-fluid .navbar-header .navbar-brand {
+    color: rgb(255, 255, 255);
+    background-repeat: no-repeat;
+    padding-left: 20px;
+    padding-right: 5px; 
+    font-family: 'Exo';
+    font-size: 40px;
+    transform: skew(-15deg);
+    letter-spacing: 0.01em;
+}
+.navbar .container-fluid .navbar-header .navbar-brand-sub {
+    font-family: 'Mr Dafoe';
+    font-size: 20px;
+    color: white;
+    text-shadow: 0 0 0.05em #fff, 0 0 0.2em black, 0 0 0.3em black;
+    transform: rotate(-2deg);
+    position: absolute;
+    top: 2.5rem;
+    left: 20rem;
+    letter-spacing: 0.1em;
+    text-decoration: underline;
+    text-decoration-color: white;    
+}
+.navbar .container-fluid ul {
+    position: relative;
+    left: 50%;
+    transform: translatex(-50%);
+}
+@media screen and (max-width: 770px) {
+    body {
+        background-color: black;
+    }
+    .nav {
+        display: none;
+    }
+    .conentDiv{
+        display: none;
+    }
+}
+@media (max-width: 1500px) {
+    .topContainer-home{
+        max-width: 100%;
+    }
+    .mainDiv-home-text {
+        flex: 1;
+        padding-top: 5rem;
+        padding-bottom: 5rem;
+        margin-top: 5rem;
+        margin-bottom: 5rem;
+        font-size: 10px;
+
+    }
+    .mainDiv-home-text-2 {
+        flex: 1;
+        padding-top: 5rem;
+        padding-bottom: 5rem;
+        margin-top: 5rem;
+        margin-bottom: 5rem;
+        font-size: 10px;
+    } 
+    .mainDiv-home-pic {
+        flex: 2;
+        max-height: 100%;
+        font-size: 10px;
+    }
+    .mainDiv-home-pic-2 {
+        flex: 2;
+        max-height: 100%;
+        font-size: 10px;
+    }
+}

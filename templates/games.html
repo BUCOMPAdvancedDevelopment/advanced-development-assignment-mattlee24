@@ -1,22 +1,17 @@
 {% extends "base.html" %} 
+{% block head %}
+    <link href="static/games.css" rel="stylesheet">
+{% endblock %}  
 {% set active_page = "games" %} 
-{% block body %} 
-    {% for game in data %}
-    <div class="conentDiv-games">                                         
+{% block body %}
+<div class="conentDiv-games">     
+    {% for game in data | sort(attribute='name') %}                                     
         <div class="topContainer-game">
-            <div class="mainDiv-game-pic">
-                <img class="coverImage" src= {{ game.image }}>
-            </div>
-            <div class="mainDiv-game-text">
+            <div class="mainDiv-game">
+                <img class="gameImage" src={{ game.background_image }}>
                 <h1>{{ game.name }}</h1>
-                <p>Games featuring the Optimised for Xbox Series X|S 
-                    icon will showcase unparalleled load-times, heightened 
-                    visuals and steadier framerates at up to 120FPS. These include new 
-                    titles built natively using the Xbox Series X|S development 
-                    environment as well as previously released titles that have been 
-                    rebuilt specifically for Xbox Series X|S.</p>
-                    <p>{{ game.price }}</p>
             </div>
         </div>
     {% endfor %}
+</div>
 {% endblock %} 

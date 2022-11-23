@@ -162,7 +162,7 @@ p {
     font-weight: bold;
 }
 .navbar .container-fluid .navbar-header .navbar-brand {
-    color: rgb(255, 255, 255);
+    color: greenyellow;
     background-repeat: no-repeat;
     padding-left: 20px;
     padding-right: 5px; 

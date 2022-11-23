@@ -1,0 +1,8 @@
+__pycache__/
+Include/
+Lib/
+Scripts/
+share/
+package-lock.json
+package.json
+pyvenv.cfg

@@ -38,10 +38,16 @@ h1 {
     margin-bottom: 0;
 }
 .firebaseui-container {
-    background-color: rgb(40, 41, 43);
+    background-color: black;
     margin: auto;
     margin-top: 8px;
     padding: 1rem;
+    max-width: 1000px;
+}
+.firebaseui-idp-button, .firebaseui-tenant-button {
+    max-width: 500px;
+    border-radius: 25px;
+    font-weight: bold;
 }
 .firebaseui-button {
     background-color: rgb(62, 63, 66) !important;

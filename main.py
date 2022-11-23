@@ -1,16 +1,19 @@
 import datetime
 import os
 import logging
+import mongoDb
+import json
 
-from flask import Flask, render_template, request
+from flask import Flask, jsonify, render_template, request
 from google.auth.transport import requests
 from google.cloud import datastore
 import google.oauth2.id_token
 
+
 # Enable running on local dev environment
 # Always comment lines 12 and 13 before running on the cloud, otherwise the app will NOT work
-# os.environ.setdefault("GCLOUD_PROJECT", "ad-364515")
-# os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = (r"C:\Users\matth\Desktop\AdLocalCoursework\venv\application_default_credentials.json")
+os.environ.setdefault("GCLOUD_PROJECT", "ad-364515")
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = (r"C:\Users\matth\Desktop\AdLocalCoursework\venv\application_default_credentials.json")
 
 firebase_request_adapter = requests.Request()
 
@@ -83,6 +86,12 @@ def games():
 @app.route('/account') 
 def account(): 
     return render_template('account.html') 
+
+@app.route('/display', methods=['GET'])
+def display():
+    jResponse=mongoDb.get_mongodb_items()
+    data=json.loads(jResponse)
+    return jsonify(data)
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App

@@ -15,6 +15,5 @@ def get_mongodb_items():
 
     myCursor = collection.find()
     list_cur = list(myCursor)
-    print(list_cur)
     json_data = dumps(list_cur)
     return json_data

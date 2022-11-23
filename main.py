@@ -73,15 +73,19 @@ def root():
 
 @app.route('/home') 
 def home(): 
- return render_template('home.html') 
+    jResponse=mongoDb.get_mongodb_items()
+    jResponse=json.loads(jResponse)
+    return render_template('home.html', data=jResponse) 
 
 @app.route('/about') 
 def about(): 
- return render_template('about.html') 
+    return render_template('about.html') 
 
 @app.route('/games') 
 def games(): 
- return render_template('games.html') 
+    jResponse=mongoDb.get_mongodb_items()
+    jResponse=json.loads(jResponse)
+    return render_template('games.html', data=jResponse) 
 
 @app.route('/account') 
 def account(): 
@@ -91,7 +95,8 @@ def account():
 def display():
     jResponse=mongoDb.get_mongodb_items()
     data=json.loads(jResponse)
-    return jsonify(data)
+    data=jsonify(data)
+    return data
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App

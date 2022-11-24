@@ -4,14 +4,16 @@
 {% endblock %}  
 {% set active_page = "games" %} 
 {% block body %}
-<div class="conentDiv-games">     
-    {% for game in data | sort(attribute='name') %}                                     
-        <div class="topContainer-game">
-            <div class="mainDiv-game">
-                <img class="gameImage" src={{ game.background_image }}>
-                <h1>{{ game.name }}</h1>
-            </div>
-        </div>
-    {% endfor %}
+<div class="conentDiv-games">
+    <div class="center">   
+        {% for game in data | sort(attribute='name') %}                                     
+            <a class="topContainer-game" href= {{ game.slug }}>
+                <div class="mainDiv-game">
+                    <img class="gameImage" src={{ game.background_image }}>
+                    <h1>{{ game.name }}</h1>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %} 

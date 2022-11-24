@@ -1,0 +1,13 @@
+{% extends "base.html" %} 
+{% block head %}
+    <link href="static/gamesDetails.css" rel="stylesheet">
+{% endblock %}  
+{% set active_page = "games" %} 
+{% block body %}
+<div class="conentDiv-games">                                 
+    <div class="mainDiv-game">
+        <img class="gameImage" src={{ data[0].background_image }}>
+        <h1>{{ data[0].name }}</h1>
+    </div>
+</div>
+{% endblock %} 

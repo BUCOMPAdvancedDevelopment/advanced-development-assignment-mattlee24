@@ -4,6 +4,14 @@ import logging
 import mongoDb
 import json
 
+import pymongo 
+from pymongo import MongoClient 
+from bson.json_util import dumps
+
+cluster=MongoClient( "mongodb+srv://dpUser:dpUserPassword@adcoursework.9ybhyss.mongodb.net/?retryWrites=true&w=majority") 
+db=cluster["Games"] 
+collection=db["Games"] 
+
 from flask import Flask, jsonify, render_template, request
 from google.auth.transport import requests
 from google.cloud import datastore
@@ -86,6 +94,40 @@ def games():
     jResponse=mongoDb.get_mongodb_items()
     jResponse=json.loads(jResponse)
     return render_template('games.html', data=jResponse) 
+
+@app.route('/<slug>', methods=['GET'])
+def single_game(slug):
+    jResponse=mongoDb.get_single_game(slug)
+    data=json.loads(jResponse)
+    print(data)
+    return render_template('gamesDetails.html', data=data)
+
+@app.route("/add-game", methods=["GET", "POST"])
+def add_game_page():
+    if request.method == "POST":
+        slug = request.form["gameSlug"]
+        name = request.form["gameName"]
+        release = request.form["gameReleaseDate"]
+        genre = request.form["gameGenre"]
+        rating = request.form["gameRating"]
+        ageRating = request.form["gameAgeRating"]
+        image = request.form["gameImage"]
+        price = request.form["gamePrice"]
+        description = request.form["gameDescription"]
+ 
+        new_game_json = {
+            "slug": slug,
+            "name": name,
+            "released": release,
+            "genre": genre,
+            "rating": rating,
+            "age_rating": ageRating,
+            "background_image": image,
+            "price": price,
+            "description": description,
+        }
+        collection.insert_one(new_game_json)
+    return render_template("/add_game.html")
 
 @app.route('/account') 
 def account(): 

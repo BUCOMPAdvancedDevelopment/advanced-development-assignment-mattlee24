@@ -17,3 +17,16 @@ def get_mongodb_items():
     list_cur = list(myCursor)
     json_data = dumps(list_cur)
     return json_data
+
+def get_single_game(slug):
+    # Search data from Mongodb
+
+    myCursor = None
+    # create queries
+    game_query = {"slug": {"$eq": slug}}
+    name_query = {"name": {"$eq": "Grand Theft Auto V"}}
+
+    myCursor = collection.find({"$and": [game_query]})
+    list_cur = list(myCursor)
+    json_data = dumps(list_cur)
+    return json_data

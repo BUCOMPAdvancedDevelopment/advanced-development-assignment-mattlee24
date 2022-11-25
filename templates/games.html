@@ -4,6 +4,7 @@
 {% endblock %}  
 {% set active_page = "games" %} 
 {% block body %}
+<a id="add-game" href="/add-game"><span class="glyphicon glyphicon-plus"></span></a>
 <div class="conentDiv-games">
     <div class="center">   
         {% for game in data | sort(attribute='name') %}                                     

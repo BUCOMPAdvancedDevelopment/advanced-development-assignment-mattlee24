@@ -1,6 +1,6 @@
 {% extends "base.html" %} 
 {% block head %}
-    <link href="static/games.css" rel="stylesheet">
+    <link href="static/editgames.css" rel="stylesheet">
 {% endblock %}  
 {% set active_page = "games" %} 
 {% block body %}
@@ -8,7 +8,7 @@
 <div class="conentDiv-games">
     <div class="center">   
         {% for game in data | sort(attribute='name') %}                                     
-            <a class="topContainer-game" href= {{ game.slug }}>
+            <a class="topContainer-game" href="{{ '/editgames/%s'%game.slug|urlencode }}">
                 <div class="mainDiv-game">
                     <img class="gameImage" src={{ game.background_image }}>
                     <h1>{{ game.name }}</h1>

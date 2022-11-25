@@ -1,5 +1,13 @@
 {% extends "base.html" %} 
+{% block head %}
+    <link href="static/account.css" rel="stylesheet">
+{% endblock %}
 {% set active_page = "account" %} 
 {% block body %}
-<p id="account-name"></p>
+<div class="mainDiv-account">
+    <p id="account-name"></p>
+    <footer class="footer">
+        <h1>© 2022 Matt Lee</h1>
+    </footer>
+</div>
 {% endblock %} 

@@ -30,3 +30,10 @@ def get_single_game(slug):
     list_cur = list(myCursor)
     json_data = dumps(list_cur)
     return json_data
+
+def delete_game(slug):
+    game_query = {"slug": {"$eq": slug}}
+    collection.delete_one({"$and": [game_query]})
+    return slug
+
+

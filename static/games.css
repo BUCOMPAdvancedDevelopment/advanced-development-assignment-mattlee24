@@ -1,9 +1,21 @@
 @import url('https://fonts.googleapis.com/css?family=Allerta&display=swap');
 
+#add-game{
+    position: absolute;
+    top: 1rem;
+    right: 7rem;
+}
+.glyphicon.glyphicon-plus {
+    font-size: 30px;
+    color: greenyellow;
+}
+.glyphicon.glyphicon-plus:hover {
+    color: blue;
+}
 .conentDiv-games{
     position: absolute;
     left: 0;
-    margin-left: 15rem ;
+    margin-left: 15rem;
 }
 .topContainer-game{
     display: flex;

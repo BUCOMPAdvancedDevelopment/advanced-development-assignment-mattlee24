@@ -6,8 +6,21 @@
 {% block body %}
 <div class="conentDiv-games">                                 
     <div class="mainDiv-game">
-        <img class="gameImage" src={{ data[0].background_image }}>
-        <h1>{{ data[0].name }}</h1>
+        <div>
+            <img class="gameImage" src="{{ data[0].background_image }}">
+        </div>
+        <div class="infoDiv">
+            <h1>{{ data[0].name }}</h1>
+            {% if data[0].price == "FREE" %}
+                <p id="price">{{data[0].price }}</p>
+            {% else %}
+                <p id="price">£ {{data[0].price }}</p>
+            {% endif %}
+            <p id="rating">Rating: {{data[0].rating }}/5 </p>
+            {% for text in data[0].description %}
+                <p id="About">{{ text }}</p>
+            {% endfor %}
+        </div>
     </div>
 </div>
 {% endblock %} 

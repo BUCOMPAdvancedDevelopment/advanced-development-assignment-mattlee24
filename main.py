@@ -152,16 +152,6 @@ def editGame(slug):
         price = request.form["gamePrice"]
         description = request.form["gameDescription"]
 
-        print(slug)
-        print(name)
-        print(release)
-        print(genre)
-        print(rating)
-        print(ageRating)
-        print(image)
-        print(price)
-        print(description)
-
         game_query = {"slug": {"$eq": slug}}
         update_game = {
             "$set": {

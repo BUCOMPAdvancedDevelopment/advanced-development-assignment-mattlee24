@@ -99,8 +99,12 @@ def games():
 def single_game(slug):
     jResponse=mongoDb.get_single_game(slug)
     data=json.loads(jResponse)
-    print(data)
     return render_template('gamesDetails.html', data=data)
+
+@app.route('/deleteGame/<slug>', methods=['DELETE'])
+def delete_game(slug):
+    mongoDb.delete_game(slug)
+    return render_template('games.html')
 
 @app.route("/add-game", methods=["GET", "POST"])
 def add_game_page():
@@ -128,6 +132,44 @@ def add_game_page():
         }
         collection.insert_one(new_game_json)
     return render_template("/add_game.html")
+
+@app.route('/editgames') 
+def editgames(): 
+    jResponse=mongoDb.get_mongodb_items()
+    jResponse=json.loads(jResponse)
+    return render_template('edit_games.html', data=jResponse) 
+
+@app.route("/editgames/<slug>", methods=["GET", "POST"])
+def editGame(slug):
+    if request.method == "POST":
+        slug = request.form["gameSlug"]
+        name = request.form["gameName"]
+        release = request.form["gameReleaseDate"]
+        genre = request.form["gameGenre"]
+        rating = request.form["gameRating"]
+        ageRating = request.form["gameAgeRating"]
+        image = request.form["gameImage"]
+        price = request.form["gamePrice"]
+        description = request.form["gameDescription"]
+
+        game_query = {"slug": {"$eq": slug}}
+        update_game = {
+            "$set": {
+                "slug": slug,
+                "name": name,
+                "released": release,
+                "genre": genre,
+                "rating": rating,
+                "age_rating": ageRating,
+                "background_image": image,
+                "price": price,
+                "description": description,
+            }
+        }
+        collection.update_one(game_query, update_game)
+    jResponse=mongoDb.get_single_game(slug)
+    data=json.loads(jResponse)
+    return render_template("editGameDetails.html", data=data)
 
 @app.route('/account') 
 def account(): 

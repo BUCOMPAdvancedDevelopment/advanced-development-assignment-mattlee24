@@ -6,21 +6,42 @@
 {% block body %}
 <div class="conentDiv-games">                                 
     <div class="mainDiv-game">
-        <div>
-            <img class="gameImage" src="{{ data[0].background_image }}">
-        </div>
-        <div class="infoDiv">
-            <h1>{{ data[0].name }}</h1>
-            {% if data[0].price == "FREE" %}
-                <p id="price">{{data[0].price }}</p>
-            {% else %}
-                <p id="price">£ {{data[0].price }}</p>
-            {% endif %}
-            <p id="rating">Rating: {{data[0].rating }}/5 </p>
-            {% for text in data[0].description %}
-                <p id="About">{{ text }}</p>
-            {% endfor %}
-        </div>
+        {% for game in data %}
+            <div>
+                <img class="gameImage" src="{{ game.background_image }}">
+            </div>
+            <h1 hidden="true" id="slug">{{ game.slug }}</h1>
+            <div class="infoDiv">
+                <h1 id="gameName">{{ game.name }}</h1>
+                {% if game.price == "FREE" %}
+                    <p id="price">{{ game.price }}</p>
+                {% else %}
+                    <p id="price">£ {{ game.price }}</p>
+                {% endif %}
+                <p id="rating">Rating: {{ game.rating }}/5 </p>
+                {% for text in game.description %}
+                    <p id="About">{{ text }}</p>
+                {% endfor %}
+            </div>
+        {%  endfor %}
+        <button class="button" onclick="deleteGame()">Delete Game</button>
     </div>
 </div>
+<script>
+    function deleteGame(slug){
+        slug = document.getElementById("slug").innerHTML;
+        'use strict'
+        const xhr = new XMLHttpRequest();
+        xhr.open('DELETE', '/deleteGame/' + String(slug), true);
+        xhr.onload = function () {
+            if (xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 300){
+                location.href = "/games"
+
+            } else {
+                alert("Error: " + xhr.status)
+            }
+        }
+        xhr.send();
+    }
+</script>
 {% endblock %} 

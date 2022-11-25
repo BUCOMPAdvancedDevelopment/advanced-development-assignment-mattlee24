@@ -1,0 +1,36 @@
+{% extends "base.html" %} 
+{% block head %}
+    <link href="../static/gamesDetails.css" rel="stylesheet">
+{% endblock %}  
+{% set active_page = "games" %} 
+{% block body %}
+<div class="conentDiv-games">                                 
+    <div class="mainDiv-game">
+        {% for game in data %}
+            <section id="add-game-container" class="add-game-container">
+                <form method="POST">
+                    <label for="gameSlug">Game Slug:</label>
+                    <input type="text" id="gameSlug" name="gameSlug" value={{ game.slug }} required><br>
+                    <label for="gameName">Game Name:</label>
+                    <input type="text" id="gameName" name="gameName" required><br>
+                    <label for="gameReleaseDate">Game Release Date:</label>
+                    <input type="date" id="gameReleaseDate" name="gameReleaseDate" required><br>
+                    <label for="gameGenre">Game Genre:</label>
+                    <input type="text" id="gameGenre" name="gameGenre" required><br>
+                    <label for="gameRating">Game Rating:</label>
+                    <input type="number" id="gameRating" name="gameRating" required><br>
+                    <label for="gameAgeRating">Game Age Rating:</label>
+                    <input type="text" id="gameAgeRating" name="gameAgeRating" required><br>
+                    <label for="gameImage">Game Image:</label>
+                    <input type="url" id="gameImage" name="gameImage" required><br>
+                    <label for="gamePrice">Game Price:</label>
+                    <input type="number" id="gamePrice" name="gamePrice" required><br>
+                    <label for="gameDescription">Game Description:</label>
+                    <input type="text" id="gameDescription" name="gameDescription" required><br>
+                    <input type="submit" value="Edit" onclick="location.href='/games'">
+                </form>
+            </section>
+        {%  endfor %}
+    </div>
+</div>
+{% endblock %} 

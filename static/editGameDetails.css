@@ -1,0 +1,102 @@
+#form-popup{
+    position: absolute;
+    z-index: 2;
+    background-color: rgb(40, 41, 43);
+    padding: 2rem;
+    border-radius: 10px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin-top: 40rem;
+    width: 1000px;
+    max-height: 500px;
+    -webkit-box-shadow: 0px 3px 7px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 0px 3px 7px 0px rgba(0,0,0,0.75);
+    box-shadow: 0px 3px 7px 0px rgba(0,0,0,0.75);
+    overflow: scroll;
+    overflow-x: hidden;
+}
+#form-popup h1 {
+    width: 100%;
+    max-width: 100%; 
+    padding: 2px;
+    margin: 5px;
+    font-family: "Allerta Stencil";
+    color: greenyellow;
+    text-align: center;
+    font-weight: bold;
+    font-size: 50px;
+}
+#form-popup label {
+    width: 100%;
+    max-width: 100%; 
+    padding: 2px;
+    margin: 5px;
+    font-family: "Allerta Stencil";
+    color: greenyellow;
+}
+#form-popup input {
+    width: 100%;
+    max-width: 100%; 
+    padding: 10px;
+    margin: 2px;
+    background: rgb(40, 41, 43);
+    font-family: "Allerta Stencil";
+    color: greenyellow;
+    border-width: 1px;
+    border-color: yellowgreen;
+    border-radius: 10px;
+}
+#form-popup textarea {
+    width: 100%;
+    max-width: 100%; 
+    padding: 10px;
+    margin: 2px;
+    background: rgb(40, 41, 43);
+    font-family: "Allerta Stencil";
+    color: greenyellow;
+    border-width: 1px;
+    border-color: yellowgreen;
+    border-radius: 10px;
+    height: 200px;
+}
+#form-popup #gameName {
+    width: 100%;
+    max-width: 100%; 
+    padding: 10px;
+    margin: 2px;
+    background: rgb(40, 41, 43);
+    font-family: "Allerta Stencil";
+    color: greenyellow;
+    border-width: 1px;
+    border-color: yellowgreen;
+    border-radius: 10px;
+    height: 40px;
+    overflow: hidden;
+}
+#form-popup input#button {
+    width: 100%;
+    padding: 10px;
+    margin: 2px;
+    border: none;
+    background: greenyellow;
+    opacity: 0.8;
+    color: green;
+}
+#form-popup input#button:hover {
+    opacity: 1;
+}
+#form-popup input#submitBtn {
+    width: 100%;
+    padding: 10px;
+    margin: 2px;
+    margin-top: 15px;
+    border: none;
+    background: greenyellow;
+    opacity: 0.8;
+    color: green;
+}
+#form-popup input#submitBtn:hover {
+    opacity: 1;
+}

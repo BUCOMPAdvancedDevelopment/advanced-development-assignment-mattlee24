@@ -36,4 +36,12 @@ def delete_game(slug):
     collection.delete_one({"$and": [game_query]})
     return slug
 
+def edit_game(update_game, game_query):
+    collection.update_one(game_query, update_game)
+    return update_game
+
+def add_game(new_game_json):
+    collection.insert_one(new_game_json)
+    return new_game_json
+
 

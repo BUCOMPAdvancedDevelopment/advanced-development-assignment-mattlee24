@@ -1,8 +1,13 @@
 @import url('https://fonts.googleapis.com/css?family=Allerta&display=swap');
 
+#message{
+    text-align: center;
+    background-color: greenyellow;
+    border-width: 0px;
+}
 #add-game{
     position: absolute;
-    top: 1rem;
+    top: 1.8rem;
     right: 7rem;
 }
 .glyphicon.glyphicon-plus {

@@ -50,29 +50,20 @@
     overflow: scroll;
     overflow-x: hidden;
 }
-::-webkit-scrollbar {
-    width: 5px;
-}
-/* Track */
-::-webkit-scrollbar-track {
-    background: #f1f1f1; 
-  }
-   
-  /* Handle */
-  ::-webkit-scrollbar-thumb {
-    background: yellowgreen;
-  }
-  
-  /* Handle on hover */
-  ::-webkit-scrollbar-thumb:hover {
-    background-color: green;
-  }
 #About{
     font-size: 15px;
 }
-.button{
+#delete-game{
     position: absolute;
-    top: 1.2rem;
-    right: 10rem;
+    top: 2rem;
+    right: 7rem;
+}
+.glyphicon.glyphicon-trash {
+    font-size: 30px;
+    color: greenyellow;
+}
+.glyphicon.glyphicon-trash:hover {
+    color: red;
+    cursor: pointer;
 }
 

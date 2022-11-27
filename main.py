@@ -1,3 +1,4 @@
+import array
 import datetime
 import os
 import logging
@@ -12,7 +13,7 @@ cluster=MongoClient( "mongodb+srv://dpUser:dpUserPassword@adcoursework.9ybhyss.m
 db=cluster["Games"] 
 collection=db["Games"] 
 
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, flash, jsonify, redirect, render_template, request, url_for
 from google.auth.transport import requests
 from google.cloud import datastore
 import google.oauth2.id_token
@@ -32,6 +33,7 @@ datastore_client = datastore.Client()
 # [END gae_python3_datastore_store_and_fetch_user_times]
 # [END gae_python38_datastore_store_and_fetch_user_times]
 app = Flask(__name__)
+app.config['SECRET_KEY'] = '929AE2F2113856B6'
 
 
 # [START gae_python38_datastore_store_and_fetch_user_times]
@@ -89,8 +91,27 @@ def home():
 def about(): 
     return render_template('about.html') 
 
-@app.route('/games') 
-def games(): 
+@app.route('/games', methods=["GET", "POST"]) 
+def games():
+    if request.method == "POST":
+        slug = request.form["gameSlug"]
+        name = request.form["gameName"]
+        release = request.form["gameReleaseDate"]
+        rating = request.form["gameRating"]
+        image = request.form["gameImage"]
+        price = request.form["gamePrice"]
+        description = request.form["gameDescription"]
+ 
+        new_game_json = {
+            "slug": slug,
+            "name": name,
+            "released": release,
+            "rating": rating,
+            "background_image": image,
+            "price": price,
+            "description": description,
+        }
+        mongoDb.add_game(new_game_json)
     jResponse=mongoDb.get_mongodb_items()
     jResponse=json.loads(jResponse)
     return render_template('games.html', data=jResponse) 
@@ -106,48 +127,13 @@ def delete_game(slug):
     mongoDb.delete_game(slug)
     return render_template('games.html')
 
-@app.route("/add-game", methods=["GET", "POST"])
-def add_game_page():
+@app.route('/editgames', methods=["GET", "POST"]) 
+def editgames():
     if request.method == "POST":
         slug = request.form["gameSlug"]
         name = request.form["gameName"]
         release = request.form["gameReleaseDate"]
-        genre = request.form["gameGenre"]
         rating = request.form["gameRating"]
-        ageRating = request.form["gameAgeRating"]
-        image = request.form["gameImage"]
-        price = request.form["gamePrice"]
-        description = request.form["gameDescription"]
- 
-        new_game_json = {
-            "slug": slug,
-            "name": name,
-            "released": release,
-            "genre": genre,
-            "rating": rating,
-            "age_rating": ageRating,
-            "background_image": image,
-            "price": price,
-            "description": description,
-        }
-        collection.insert_one(new_game_json)
-    return render_template("/add_game.html")
-
-@app.route('/editgames') 
-def editgames(): 
-    jResponse=mongoDb.get_mongodb_items()
-    jResponse=json.loads(jResponse)
-    return render_template('edit_games.html', data=jResponse) 
-
-@app.route("/editgames/<slug>", methods=["GET", "POST"])
-def editGame(slug):
-    if request.method == "POST":
-        slug = request.form["gameSlug"]
-        name = request.form["gameName"]
-        release = request.form["gameReleaseDate"]
-        genre = request.form["gameGenre"]
-        rating = request.form["gameRating"]
-        ageRating = request.form["gameAgeRating"]
         image = request.form["gameImage"]
         price = request.form["gamePrice"]
         description = request.form["gameDescription"]
@@ -158,15 +144,20 @@ def editGame(slug):
                 "slug": slug,
                 "name": name,
                 "released": release,
-                "genre": genre,
                 "rating": rating,
-                "age_rating": ageRating,
                 "background_image": image,
                 "price": price,
                 "description": description,
             }
         }
-        collection.update_one(game_query, update_game)
+        mongoDb.edit_game(update_game, game_query)
+    flash('Click on game to edit...', 'success')
+    jResponse=mongoDb.get_mongodb_items()
+    jResponse=json.loads(jResponse)
+    return render_template('edit_games.html', data=jResponse) 
+
+@app.route("/editgames/<slug>", methods=["GET", "POST"])
+def editGame(slug):
     jResponse=mongoDb.get_single_game(slug)
     data=json.loads(jResponse)
     return render_template("editGameDetails.html", data=data)
@@ -174,13 +165,6 @@ def editGame(slug):
 @app.route('/account') 
 def account(): 
     return render_template('account.html') 
-
-@app.route('/display', methods=['GET'])
-def display():
-    jResponse=mongoDb.get_mongodb_items()
-    data=json.loads(jResponse)
-    data=jsonify(data)
-    return data
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App

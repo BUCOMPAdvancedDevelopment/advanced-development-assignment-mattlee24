@@ -4,7 +4,27 @@
 {% endblock %}  
 {% set active_page = "games" %} 
 {% block body %}
-<a id="add-game" href="/add-game"><span class="glyphicon glyphicon-plus"></span></a>
+<a id="add-gameBtn" hidden=true onclick="addGameform()"><span class="glyphicon glyphicon-plus"></span></a>
+<a id="edit-gameBtn" name="edit" hidden=true value="edit" href="/editgames"><span class="glyphicon glyphicon-pencil"></span></a>
+<form action="/games" method="POST" hidden=true id="form-popup">
+    <h1>Add Game</h1>
+    <label for="gameSlug">Game Slug:</label>
+    <input type="text" id="gameSlug" name="gameSlug" required><br>
+    <label for="gameName">Game Name:</label>
+    <input type="text" id="gameName" name="gameName" required><br>
+    <label for="gameReleaseDate">Game Release Date:</label>
+    <input type="date" id="gameReleaseDate" name="gameReleaseDate" required><br>
+    <label for="gameRating">Game Rating /5:</label>
+    <input type="number" id="gameRating" name="gameRating" required><br>
+    <label for="gameImage">Game Image:</label>
+    <input type="url" id="gameImage" name="gameImage" required><br>
+    <label for="gamePrice">Game Price:</label>
+    <input type="number" step="0.01" id="gamePrice" name="gamePrice" required><br>
+    <label for="gameDescription">Game Description: (Type 'newline' when you want to start a new paragraph/line in description)</label>
+    <textarea type="text" id="gameDescription" name="gameDescription" required></textarea><br>
+    <input type="submit" value="Add Game" name="addbtn" id="submitBtn">
+    <input type="button" value="Close" onclick="closeForm()" id="button">
+</form>
 <div class="conentDiv-games">
     <div class="center">   
         {% for game in data | sort(attribute='name') %}                                     
@@ -20,4 +40,15 @@
         <h1>© 2022 Matt Lee</h1>
     </footer>
 </div>
+<script>
+    function addGameform() {
+        document.getElementById("form-popup").style.display = "block";
+    }
+    function closeForm(){
+        document.getElementById("form-popup").style.display = "none";
+    }
+    window.onload = function onload () {
+        addEditBtns();  
+    }
+</script>
 {% endblock %} 

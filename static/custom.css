@@ -9,6 +9,23 @@ body {
     overflow-x: hidden;
     position: relative
 }
+::-webkit-scrollbar {
+    width: 5px;
+}
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: yellowgreen;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background-color: green;
+}
 p{ 
     font-size: 1.2em;
     color: white;   
@@ -16,7 +33,7 @@ p{
 #sign-out{
     position: absolute;
     right: 2.5rem;
-    top: 1rem;
+    top: 1.8rem;
     cursor: pointer;
 }
 .footer{
@@ -167,11 +184,15 @@ p{
     -webkit-box-shadow: 0px 9px 8px -4px rgba(0,0,0,0.48);
     -moz-box-shadow: 0px 9px 8px -4px rgba(0,0,0,0.48);
     box-shadow: 0px 9px 8px -4px rgba(0,0,0,0.48);
+    height: 7rem;
 }
 .navbar .container-fluid ul li a {
     color: rgb(255, 255, 255);
     font-size: 15;
     font-weight: bold;
+    height: 7rem;
+    display: flex;
+    align-items: center ;
 }
 .navbar .container-fluid ul .active .navlink {
     background-color: rgb(83, 79, 77);
@@ -188,6 +209,7 @@ p{
     font-size: 40px;
     transform: skew(-15deg);
     letter-spacing: 0.01em;
+    padding-top: 2.5rem;
 }
 .navbar .container-fluid .navbar-header .navbar-brand-sub {
     font-family: 'Mr Dafoe';
@@ -196,7 +218,7 @@ p{
     text-shadow: 0 0 0.05em #fff, 0 0 0.2em black, 0 0 0.3em black;
     transform: rotate(-2deg);
     position: absolute;
-    top: 2.5rem;
+    top: 3.5rem;
     left: 20rem;
     letter-spacing: 0.1em;
     text-decoration: underline;

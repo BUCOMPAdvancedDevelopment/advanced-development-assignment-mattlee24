@@ -16,15 +16,13 @@
                 {% if game.price == "FREE" %}
                     <p id="price">{{ game.price }}</p>
                 {% else %}
-                    <p id="price">£ {{ game.price }}</p>
+                    <p id="price">£{{ game.price }}</p>
                 {% endif %}
                 <p id="rating">Rating: {{ game.rating }}/5 </p>
-                {% for text in game.description %}
-                    <p id="About">{{ text }}</p>
-                {% endfor %}
+                <p id="About">{{ game.description }}</p>
             </div>
         {%  endfor %}
-        <button class="button" onclick="deleteGame()">Delete Game</button>
+        <a id="delete-game" hidden=true onclick="deleteGame(slug)"><span class="glyphicon glyphicon-trash"></span></a>
     </div>
 </div>
 <script>
@@ -42,6 +40,12 @@
             }
         }
         xhr.send();
+    }
+    window.onload = function replace () {
+        document.body.innerHTML
+                = document.body.innerHTML
+                .replace(/newline/gi, "<br><br>");
+        deleteBtn();
     }
 </script>
 {% endblock %} 

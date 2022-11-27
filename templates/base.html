@@ -141,6 +141,8 @@
         <script>
             function signOut(){
                 firebase.auth().signOut();
+                window.location.assign('https://accounts.google.com/Logout');
+                window.location.assign('https://github.com/logout');
                 window.location.href = "/";
             }
         </script>

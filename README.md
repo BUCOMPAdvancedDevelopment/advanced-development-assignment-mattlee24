@@ -1,8 +1,8 @@
 # Advanced Devlopement Unit Coursework - Matt Lee s5207970
 
-## Coursework for advanced dev unit, final year (year 3)
+### Coursework for Advanced Dev Unit, Final Year (Year 3)
 
-To Acces Site on the cloud, follow the following link: 
+To access Site on the cloud, use the following link: 
                   https://ad-gamezone.ew.r.appspot.com
                   
 To run in a local environment, run the following commands:

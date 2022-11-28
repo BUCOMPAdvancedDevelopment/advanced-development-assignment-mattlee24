@@ -19,7 +19,7 @@
     {% set navigation_bar = [('/home', 'home', 'Home'), ('/about', 'about', 'About')] -%} 
     {% set navigation_bar_right = [('/games', 'games', 'Games'), ('/account', 'account', 'Account')] -%} 
     <body>
-        <nav class="navbar navbar-inverse">
+        <nav class="navbar navbar-inverse  sticky-top">
             <div class="container-fluid">
                 <ul class="nav navbar-nav">
                     {% for href, id, caption in navigation_bar %} 

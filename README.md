@@ -3,7 +3,8 @@
 ### Coursework for Advanced Dev Unit, Final Year (Year 3)
 
 #### To access Site on the cloud, use the following link: 
-        https://ad-gamezone.ew.r.appspot.com
+
+https://ad-gamezone.ew.r.appspot.com
                   
 #### To run in a local environment, run the following commands:
       

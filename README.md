@@ -6,7 +6,7 @@
 
 https://ad-gamezone.ew.r.appspot.com
 
-#Local Server Commands
+# Local Server Commands
                   
 #### To run in a local environment, run the following commands:
       

@@ -4,6 +4,7 @@ import os
 import logging
 import mongoDb
 import json
+import firebase_admin
 
 import pymongo 
 from pymongo import MongoClient 
@@ -16,13 +17,14 @@ collection=db["Games"]
 from flask import Flask, flash, jsonify, redirect, render_template, request, url_for
 from google.auth.transport import requests
 from google.cloud import datastore
+from firebase_admin import credentials, firestore, initialize_app
 import google.oauth2.id_token
 
 
 # Enable running on local dev environment
 # Always comment lines 12 and 13 before running on the cloud, otherwise the app will NOT work
-# os.environ.setdefault("GCLOUD_PROJECT", "ad-364515")
-# os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = (r"C:\Users\matth\Desktop\AdLocalCoursework\venv\application_default_credentials.json")
+os.environ.setdefault("GCLOUD_PROJECT", "ad-364515")
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = (r"C:\Users\matth\Desktop\AdLocalCoursework\venv\application_default_credentials.json")
 
 firebase_request_adapter = requests.Request()
 
@@ -35,6 +37,15 @@ datastore_client = datastore.Client()
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '929AE2F2113856B6'
 
+def firestoreTest():
+    data = {
+    u'name': u'Los Angeles',
+    u'state': u'CA',
+    u'country': u'USA'
+    }
+    # Add a new doc in collection 'cities' with ID 'LA'
+    db.collection(u'cities').document(u'LA').set(data)
+    
 
 # [START gae_python38_datastore_store_and_fetch_user_times]
 # [START gae_python3_datastore_store_and_fetch_user_times]

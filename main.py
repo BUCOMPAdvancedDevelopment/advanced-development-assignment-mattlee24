@@ -67,8 +67,8 @@ def fetch_times(email, limit):
 
     return times
 
-
 @app.route('/')
+@app.route('/index')
 def root():
     # Verify Firebase auth.
     id_token = request.cookies.get("token")

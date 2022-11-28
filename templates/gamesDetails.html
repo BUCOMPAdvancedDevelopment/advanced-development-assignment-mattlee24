@@ -4,7 +4,8 @@
 {% endblock %}  
 {% set active_page = "games" %} 
 {% block body %}
-<div class="conentDiv-games">                                 
+<div class="conentDiv-games">   
+    <iframe id="vid" onclick="return(false);" src="https://www.youtube.com/embed/Wqsg2vWHZBM?autoplay=1&mute=1&showinfo=0?modestbranding=0&controls=0" frameborder="0" allow="autoplay"></iframe>                             
     <div class="mainDiv-game">
         {% for game in data %}
             <div>
@@ -22,6 +23,7 @@
                 <p id="About">{{ game.description }}</p>
             </div>
         {%  endfor %}
+        <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID?autoplay=1" allow='autoplay'></iframe> -->
         <a id="delete-game" hidden=true onclick="deleteGame(slug)"><span class="glyphicon glyphicon-trash"></span></a>
     </div>
 </div>

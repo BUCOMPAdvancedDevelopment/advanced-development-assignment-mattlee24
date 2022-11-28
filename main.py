@@ -23,7 +23,7 @@ import google.oauth2.id_token
 
 # Enable running on local dev environment
 # Always comment lines 12 and 13 before running on the cloud, otherwise the app will NOT work
-os.environ.setdefault("GCLOUD_PROJECT", "ad-364515")
+os.environ.setdefault("GCLOUD_PROJECT", "ad-gamezone")
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = (r"C:\Users\matth\Desktop\AdLocalCoursework\venv\application_default_credentials.json")
 
 firebase_request_adapter = requests.Request()
@@ -36,16 +36,6 @@ datastore_client = datastore.Client()
 # [END gae_python38_datastore_store_and_fetch_user_times]
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '929AE2F2113856B6'
-
-def firestoreTest():
-    data = {
-    u'name': u'Los Angeles',
-    u'state': u'CA',
-    u'country': u'USA'
-    }
-    # Add a new doc in collection 'cities' with ID 'LA'
-    db.collection(u'cities').document(u'LA').set(data)
-    
 
 # [START gae_python38_datastore_store_and_fetch_user_times]
 # [START gae_python3_datastore_store_and_fetch_user_times]
@@ -66,6 +56,16 @@ def fetch_times(email, limit):
     times = query.fetch(limit=limit)
 
     return times
+
+def add_user(slug, name, dt):
+    entity = datastore.Entity(key=datastore_client.key('Slug: ',slug, 'Name: ', name, 'userDetails'))
+    entity.update({
+        'Slug': slug,
+        'Name': name,
+        'timestamp': dt,
+    })
+
+    datastore_client.put(entity)
 
 @app.route('/')
 @app.route('/index')
@@ -112,6 +112,8 @@ def games():
         image = request.form["gameImage"]
         price = request.form["gamePrice"]
         description = request.form["gameDescription"]
+
+        add_user(slug, name, release)
  
         new_game_json = {
             "slug": slug,

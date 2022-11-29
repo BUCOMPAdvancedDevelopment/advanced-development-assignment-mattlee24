@@ -80,6 +80,17 @@ class FlaskTestCase(unittest.TestCase):
         self.assertEqual(response.status_code,400)
         print("Game Failed To Add - Correct Response!")
 
+    #Game Deleted Correctly
+    def test_delete_game (self):
+        tester = app.test_client(self)
+        response = tester.delete("/deleteGame/<slug>",
+            data=dict(
+                slug="unit-test-game",
+            ),
+            follow_redirects=True)
+        self.assertEqual(response.status_code,200)
+        print("Game deleted successfully!")
+
 
 if __name__ == "__main__":
     unittest.main()

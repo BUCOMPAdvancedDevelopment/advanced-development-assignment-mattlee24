@@ -1,40 +1,36 @@
 import pymongo 
 from pymongo import MongoClient 
 from bson.json_util import dumps
+import requests
+import json
 
 cluster=MongoClient( "mongodb+srv://dpUser:dpUserPassword@adcoursework.9ybhyss.mongodb.net/?retryWrites=true&w=majority") 
 db=cluster["Games"] 
 collection=db["Games"] 
 
-def get_mongodb_items():
-    # Search data from Mongodb
+def get_games():
+    url = "https://europe-west2-ad-gamezone.cloudfunctions.net/get_mongodb_games"
 
-    myCursor = None
-    # create queries
-    name_query = {"name": {"$eq": "Grand Theft Auto V"}}
+    uResponse = requests.get(url)
+    jResponse = uResponse.text
+    data = json.loads(jResponse)
 
-    myCursor = collection.find()
-    list_cur = list(myCursor)
-    json_data = dumps(list_cur)
-    return json_data
+    return data
 
 def get_single_game(slug):
-    # Search data from Mongodb
+    url = ("https://europe-west2-ad-gamezone.cloudfunctions.net/get_single_game?slug=" + slug)
 
-    myCursor = None
-    # create queries
-    game_query = {"slug": {"$eq": slug}}
-    name_query = {"name": {"$eq": "Grand Theft Auto V"}}
+    uResponse = requests.get(url)
+    jResponse = uResponse.text
+    data = json.loads(jResponse)
 
-    myCursor = collection.find({"$and": [game_query]})
-    list_cur = list(myCursor)
-    json_data = dumps(list_cur)
-    return json_data
+    return data
 
 def delete_game(slug):
-    game_query = {"slug": {"$eq": slug}}
-    collection.delete_one({"$and": [game_query]})
-    return slug
+    url = ("https://europe-west2-ad-gamezone.cloudfunctions.net/delete_game?slug=" + slug)
+    uResponse = requests.get(url)
+    uResponse
+    return "game deleted"
 
 def edit_game(update_game, game_query):
     collection.update_one(game_query, update_game)

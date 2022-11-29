@@ -1,21 +1,13 @@
-import array
 import datetime
 import os
 import logging
 import mongoDb
 import json
 import firebase_admin
-
-import pymongo 
-from pymongo import MongoClient 
+import requests
 from bson.json_util import dumps
-
-cluster=MongoClient( "mongodb+srv://dpUser:dpUserPassword@adcoursework.9ybhyss.mongodb.net/?retryWrites=true&w=majority") 
-db=cluster["Games"] 
-collection=db["Games"] 
-
 from flask import Flask, flash, jsonify, redirect, render_template, request, url_for
-from google.auth.transport import requests
+from google.auth.transport import requests as grequests
 from google.cloud import datastore
 from firebase_admin import credentials, firestore, initialize_app
 import google.oauth2.id_token
@@ -26,7 +18,7 @@ import google.oauth2.id_token
 os.environ.setdefault("GCLOUD_PROJECT", "ad-gamezone")
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = (r"C:\Users\matth\Desktop\AdLocalCoursework\venv\application_default_credentials.json")
 
-firebase_request_adapter = requests.Request()
+firebase_request_adapter = grequests.Request()
 
 # [START gae_python38_datastore_store_and_fetch_user_times]
 # [START gae_python3_datastore_store_and_fetch_user_times]
@@ -57,15 +49,6 @@ def fetch_times(email, limit):
 
     return times
 
-def add_user(slug, name, dt):
-    entity = datastore.Entity(key=datastore_client.key('Slug: ',slug, 'Name: ', name, 'userDetails'))
-    entity.update({
-        'Slug': slug,
-        'Name': name,
-        'timestamp': dt,
-    })
-
-    datastore_client.put(entity)
 
 @app.route('/')
 @app.route('/index')
@@ -94,9 +77,7 @@ def root():
 
 @app.route('/home') 
 def home(): 
-    jResponse=mongoDb.get_mongodb_items()
-    jResponse=json.loads(jResponse)
-    return render_template('home.html', data=jResponse) 
+    return render_template('home.html') 
 
 @app.route('/about') 
 def about(): 
@@ -104,6 +85,7 @@ def about():
 
 @app.route('/games', methods=["GET", "POST"]) 
 def games():
+
     if request.method == "POST":
         slug = request.form["gameSlug"]
         name = request.form["gameName"]
@@ -112,8 +94,6 @@ def games():
         image = request.form["gameImage"]
         price = request.form["gamePrice"]
         description = request.form["gameDescription"]
-
-        add_user(slug, name, release)
  
         new_game_json = {
             "slug": slug,
@@ -125,14 +105,13 @@ def games():
             "description": description,
         }
         mongoDb.add_game(new_game_json)
-    jResponse=mongoDb.get_mongodb_items()
-    jResponse=json.loads(jResponse)
-    return render_template('games.html', data=jResponse) 
+
+    data = mongoDb.get_games()
+    return render_template('games.html', data=data) 
 
 @app.route('/<slug>', methods=['GET'])
 def single_game(slug):
-    jResponse=mongoDb.get_single_game(slug)
-    data=json.loads(jResponse)
+    data=mongoDb.get_single_game(slug)
     return render_template('gamesDetails.html', data=data)
 
 @app.route('/deleteGame/<slug>', methods=['DELETE'])
@@ -165,9 +144,8 @@ def editgames():
         }
         mongoDb.edit_game(update_game, game_query)
     flash('Click on game to edit...', 'success')
-    jResponse=mongoDb.get_mongodb_items()
-    jResponse=json.loads(jResponse)
-    return render_template('edit_games.html', data=jResponse) 
+    data = mongoDb.get_games()
+    return render_template('edit_games.html', data=data) 
 
 @app.route("/editgames/<slug>", methods=["GET", "POST"])
 def editGame(slug):

@@ -130,7 +130,6 @@ def editgames():
         price = request.form["gamePrice"]
         description = request.form["gameDescription"]
 
-        game_query = {"slug": {"$eq": slug}}
         update_game = {
             "$set": {
                 "slug": slug,
@@ -142,15 +141,16 @@ def editgames():
                 "description": description,
             }
         }
-        mongoDb.edit_game(update_game, game_query)
+        update_game = json.dumps(update_game)
+        # print(json.loads(update_game))
+        mongoDb.edit_game(update_game, slug)
     flash('Click on game to edit...', 'success')
     data = mongoDb.get_games()
     return render_template('edit_games.html', data=data) 
 
 @app.route("/editgames/<slug>", methods=["GET", "POST"])
 def editGame(slug):
-    jResponse=mongoDb.get_single_game(slug)
-    data=json.loads(jResponse)
+    data=mongoDb.get_single_game(slug)
     return render_template("editGameDetails.html", data=data)
 
 @app.route('/account') 

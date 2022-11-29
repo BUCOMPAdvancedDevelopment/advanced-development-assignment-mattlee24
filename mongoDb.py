@@ -32,8 +32,10 @@ def delete_game(slug):
     uResponse
     return "game deleted"
 
-def edit_game(update_game, game_query):
-    collection.update_one(game_query, update_game)
+def edit_game(update_game, slug):
+    url = ("https://europe-west2-ad-gamezone.cloudfunctions.net/edit_game?slug=" + slug + "&update_game=" + update_game)
+    uResponse = requests.get(url)
+    uResponse
     return update_game
 
 def add_game(new_game_json):

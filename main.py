@@ -104,7 +104,9 @@ def games():
             "price": price,
             "description": description,
         }
-        mongoDb.add_game(new_game_json)
+        new_game = json.dumps(new_game_json)
+        print(new_game)
+        mongoDb.add_game(new_game)
 
     data = mongoDb.get_games()
     return render_template('games.html', data=data) 

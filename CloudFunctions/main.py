@@ -66,3 +66,14 @@ def edit_game(request):
     
     collection.update_one(game_query, update_game)
     return update_game
+
+def add_game(request):
+    # Search data from Mongodb 
+    cluster=MongoClient( "mongodb+srv://dpUser:dpUserPassword@adcoursework.9ybhyss.mongodb.net/?retryWrites=true&w=majority") 
+    db=cluster["Games"] 
+    collection=db["Games"] 
+
+    passed_new_game = json.loads(request.args.get('new_game'))
+    
+    collection.insert_one(passed_new_game)
+    return new_game

@@ -1,47 +1,40 @@
-import pymongo 
-from pymongo import MongoClient 
-from bson.json_util import dumps
+import requests
+import json
 
-cluster=MongoClient( "mongodb+srv://dpUser:dpUserPassword@adcoursework.9ybhyss.mongodb.net/?retryWrites=true&w=majority") 
-db=cluster["Games"] 
-collection=db["Games"] 
+def get_games():
+    url = "https://europe-west2-ad-gamezone.cloudfunctions.net/get_mongodb_games"
 
-def get_mongodb_items():
-    # Search data from Mongodb
+    uResponse = requests.get(url)
+    jResponse = uResponse.text
+    data = json.loads(jResponse)
 
-    myCursor = None
-    # create queries
-    name_query = {"name": {"$eq": "Grand Theft Auto V"}}
-
-    myCursor = collection.find()
-    list_cur = list(myCursor)
-    json_data = dumps(list_cur)
-    return json_data
+    return data
 
 def get_single_game(slug):
-    # Search data from Mongodb
+    url = ("https://europe-west2-ad-gamezone.cloudfunctions.net/get_single_game?slug=" + slug)
 
-    myCursor = None
-    # create queries
-    game_query = {"slug": {"$eq": slug}}
-    name_query = {"name": {"$eq": "Grand Theft Auto V"}}
+    uResponse = requests.get(url)
+    jResponse = uResponse.text
+    data = json.loads(jResponse)
 
-    myCursor = collection.find({"$and": [game_query]})
-    list_cur = list(myCursor)
-    json_data = dumps(list_cur)
-    return json_data
+    return data
 
 def delete_game(slug):
-    game_query = {"slug": {"$eq": slug}}
-    collection.delete_one({"$and": [game_query]})
-    return slug
+    url = ("https://europe-west2-ad-gamezone.cloudfunctions.net/delete_game?slug=" + slug)
+    uResponse = requests.get(url)
+    uResponse
+    return "game deleted"
 
-def edit_game(update_game, game_query):
-    collection.update_one(game_query, update_game)
+def edit_game(update_game, slug):
+    url = ("https://europe-west2-ad-gamezone.cloudfunctions.net/edit_game?slug=" + slug + "&update_game=" + update_game)
+    uResponse = requests.get(url)
+    uResponse
     return update_game
 
-def add_game(new_game_json):
-    collection.insert_one(new_game_json)
-    return new_game_json
+def add_game(new_game):
+    url = ("https://europe-west2-ad-gamezone.cloudfunctions.net/add_game?new_game=" + new_game)
+    uResponse = requests.get(url)
+    uResponse
+    return new_game
 
 

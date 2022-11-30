@@ -51,6 +51,7 @@
         <dl>
           <dt class="dt">Name</dt><dd class="dt">{{ user_data['name'] }}</dd>
           <dt class="dt">Email</dt><dd class="dt">{{ user_data['email'] }}</dd>
+          <dt class="dt">User ID</dt><dd class="dt">{{ user_data['user_id'] }}</dd>
           <dt class="dt">Last 10 visits</dt><dd>
       {% for time in times %}
               <p>{{ time['timestamp'] }}</p>

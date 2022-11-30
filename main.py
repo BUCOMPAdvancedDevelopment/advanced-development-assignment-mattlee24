@@ -49,6 +49,27 @@ def fetch_times(email, limit):
 
     return times
 
+def add_user_details(gamertag, platform, genre, game, uid):
+    entity = datastore.Entity(key=datastore_client.key('UserId: ', uid, 'userDetails'))
+    entity.update({
+        'timestamp': datetime.datetime.now(),
+        'gamertag': gamertag,
+        'platform': platform,
+        'genre': genre,
+        'FavouriteGame': game,
+    })
+
+    datastore_client.put(entity)
+
+def fetch_user_details(uid, limit):
+    ancestor = datastore_client.key('uid', uid)
+    query = datastore_client.query(kind='userDetails', ancestor=ancestor)
+    query.order = ['-timestamp']
+
+    userData = query.fetch(limit)
+
+    return userData
+
 
 @app.route('/')
 @app.route('/index')
@@ -157,7 +178,35 @@ def editGame(slug):
 
 @app.route('/account') 
 def account(): 
-    return render_template('account.html') 
+
+    id_token = request.cookies.get("token")
+
+    claims = google.oauth2.id_token.verify_firebase_token(
+                id_token, firebase_request_adapter)
+
+    data = fetch_user_details(claims['user_id'], 1)
+
+    return render_template('account.html', data=data) 
+
+@app.route('/accountInfo', methods=["GET", "POST"]) 
+def accountInfo(): 
+    if request.method == "POST":
+        gamertag = request.form["gamertag"]
+        platform = request.form["platform"]
+        genre = request.form["genre"]
+        game = request.form["game"]
+
+        print(game)
+
+        id_token = request.cookies.get("token")
+
+        claims = google.oauth2.id_token.verify_firebase_token(
+                id_token, firebase_request_adapter)
+    
+        add_user_details(gamertag, platform, genre, game, claims['user_id'])
+        
+    data = mongoDb.get_games()
+    return render_template('accountInfo.html', data=data) 
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App

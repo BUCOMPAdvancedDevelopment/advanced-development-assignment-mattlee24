@@ -6,9 +6,11 @@
 {% block body %}
 <a id="detailsBtn" href="/accountInfo"><span class="glyphicon glyphicon-list"></span></a>
 <div class="mainDiv-account">
-    <p id="account-name"></p>
     {% for user in data %}
         <p>{{ user['gamertag'] }}</p>
+        <p>{{ user['FavouriteGame'] }}</p>
+        <p>{{ user['genre'] }}</p>
+        <p>{{ user['platform'] }}</p>
     {% endfor %}
     <footer class="footer">
         <h1>© 2022 Matt Lee</h1>

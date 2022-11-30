@@ -19,3 +19,9 @@ indexes:
     properties:
     - name: timestamp
       direction: desc
+
+  - kind: userDetails
+    ancestor: yes
+    properties:
+    - name: timestamp
+      direction: desc

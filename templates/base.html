@@ -131,7 +131,7 @@
             function displayData() {
                 firebase.auth().onAuthStateChanged(function(user) {
                 if (user) {
-                    document.getElementById("account-name").innerHTML=user.displayName;
+                    document.getElementById("account-name").innerHTML=user.uid;
                 } else {
                     console.log("No user signed in")
                 }

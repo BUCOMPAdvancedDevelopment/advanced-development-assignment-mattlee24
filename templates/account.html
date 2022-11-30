@@ -7,13 +7,8 @@
 <a id="detailsBtn" href="/accountInfo"><span class="glyphicon glyphicon-list"></span></a>
 <div class="mainDiv-account">
     <p id="account-name"></p>
-    {% for data in data %}
-        <dl>
-            <dt class="dt">Favourite Game: </dt><dd class="dt">{{ data.FavouriteGame }}</dd>
-            <dt class="dt">GamerTag: </dt><dd class="dt">{{ data.gamertag }}</dd>
-            <dt class="dt">Genre: </dt><dd class="dt">{{ data.genre }}</dd>
-            <dt class="dt">Platform: </dt><dd class="dt">{{ data.platform }}</dd>
-        </dl>
+    {% for user in data %}
+        <p>{{ user['gamertag'] }}</p>
     {% endfor %}
     <footer class="footer">
         <h1>© 2022 Matt Lee</h1>

@@ -15,8 +15,8 @@ import google.oauth2.id_token
 
 # Enable running on local dev environment
 # Always comment lines 12 and 13 before running on the cloud, otherwise the app will NOT work
-# os.environ.setdefault("GCLOUD_PROJECT", "ad-gamezone")
-# os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = (r"C:\Users\matth\Desktop\AdLocalCoursework\venv\application_default_credentials.json")
+os.environ.setdefault("GCLOUD_PROJECT", "ad-gamezone")
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = (r"C:\Users\matth\Desktop\AdLocalCoursework\venv\application_default_credentials.json")
 
 firebase_request_adapter = grequests.Request()
 
@@ -50,7 +50,7 @@ def fetch_times(email, limit):
     return times
 
 def add_user_details(gamertag, platform, genre, game, uid):
-    entity = datastore.Entity(key=datastore_client.key('UserId: ', uid, 'userDetails'))
+    entity = datastore.Entity(key=datastore_client.key('UserId', uid, 'userDetails'))
     entity.update({
         'timestamp': datetime.datetime.now(),
         'gamertag': gamertag,
@@ -61,12 +61,12 @@ def add_user_details(gamertag, platform, genre, game, uid):
 
     datastore_client.put(entity)
 
-def fetch_user_details(uid):
-    ancestor = datastore_client.key('uid', uid)
+def fetch_user_details(uid, limit):
+    ancestor = datastore_client.key('UserId', uid)
     query = datastore_client.query(kind='userDetails', ancestor=ancestor)
     query.order = ['-timestamp']
 
-    userData = query.fetch()
+    userData = query.fetch(limit=limit)
 
     return userData
 
@@ -88,6 +88,8 @@ def root():
 
             store_time(claims['email'], datetime.datetime.now())
             times = fetch_times(claims['email'], 10)
+
+            print(times)
 
         except ValueError as exc:
             # This will be raised if the token is expired or any other
@@ -184,7 +186,9 @@ def account():
     claims = google.oauth2.id_token.verify_firebase_token(
                 id_token, firebase_request_adapter)
 
-    data = fetch_user_details(claims['user_id'])
+    data = fetch_user_details(claims['user_id'], 1)
+
+    print(data)
 
     return render_template('account.html', data=data) 
 

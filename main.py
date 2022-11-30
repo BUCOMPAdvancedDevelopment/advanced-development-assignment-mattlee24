@@ -15,8 +15,8 @@ import google.oauth2.id_token
 
 # Enable running on local dev environment
 # Always comment lines 12 and 13 before running on the cloud, otherwise the app will NOT work
-os.environ.setdefault("GCLOUD_PROJECT", "ad-gamezone")
-os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = (r"C:\Users\matth\Desktop\AdLocalCoursework\venv\application_default_credentials.json")
+# os.environ.setdefault("GCLOUD_PROJECT", "ad-gamezone")
+# os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = (r"C:\Users\matth\Desktop\AdLocalCoursework\venv\application_default_credentials.json")
 
 firebase_request_adapter = grequests.Request()
 
@@ -61,12 +61,12 @@ def add_user_details(gamertag, platform, genre, game, uid):
 
     datastore_client.put(entity)
 
-def fetch_user_details(uid, limit):
+def fetch_user_details(uid):
     ancestor = datastore_client.key('uid', uid)
     query = datastore_client.query(kind='userDetails', ancestor=ancestor)
     query.order = ['-timestamp']
 
-    userData = query.fetch(limit)
+    userData = query.fetch()
 
     return userData
 
@@ -184,7 +184,7 @@ def account():
     claims = google.oauth2.id_token.verify_firebase_token(
                 id_token, firebase_request_adapter)
 
-    data = fetch_user_details(claims['user_id'], 1)
+    data = fetch_user_details(claims['user_id'])
 
     return render_template('account.html', data=data) 
 

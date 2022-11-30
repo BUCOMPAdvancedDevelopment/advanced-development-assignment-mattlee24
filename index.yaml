@@ -23,5 +23,9 @@ indexes:
   - kind: userDetails
     ancestor: yes
     properties:
+    - name: FavouriteGame
+    - name: gamertag
+    - name: genre
+    - name: platform
     - name: timestamp
       direction: desc

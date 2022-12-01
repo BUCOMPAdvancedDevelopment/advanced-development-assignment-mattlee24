@@ -1,6 +1,7 @@
 import datetime
 import os
 import logging
+from types import NoneType
 import mongoDb
 import json
 import firebase_admin
@@ -66,7 +67,13 @@ def fetch_user_details(uid, limit):
     query = datastore_client.query(kind='userDetails', ancestor=ancestor)
     query.order = ['-timestamp']
 
-    userData = query.fetch(limit=limit)
+    query_results = list(query.fetch())
+
+    if len(query_results) == 0:
+        userData = "null"
+    else:
+        userData = query.fetch(limit=limit)
+
 
     return userData
 
@@ -188,19 +195,23 @@ def account():
 
     data = fetch_user_details(claims['user_id'], 1)
 
-    print(data)
-
-    return render_template('account.html', data=data) 
+    return render_template('account.html', data=data, user_data=claims) 
 
 @app.route('/accountInfo', methods=["GET", "POST"]) 
 def accountInfo(): 
+
+    id_token = request.cookies.get("token")
+
+    claims = google.oauth2.id_token.verify_firebase_token(
+                id_token, firebase_request_adapter)
+
+    user_data = fetch_user_details(claims['user_id'], 1)
+
     if request.method == "POST":
         gamertag = request.form["gamertag"]
         platform = request.form["platform"]
         genre = request.form["genre"]
         game = request.form["game"]
-
-        print(game)
 
         id_token = request.cookies.get("token")
 
@@ -208,9 +219,11 @@ def accountInfo():
                 id_token, firebase_request_adapter)
     
         add_user_details(gamertag, platform, genre, game, claims['user_id'])
+
+        return redirect("/account")
         
     data = mongoDb.get_games()
-    return render_template('accountInfo.html', data=data) 
+    return render_template('accountInfo.html', data=data, user_data=user_data) 
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App

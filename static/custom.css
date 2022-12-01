@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Exo:wght@900&display=swap');
 
 body {
-    width: 100%;
+    width: 100vw;
     height: 100%;
     background-color: black;
     max-width: 100%;
@@ -203,8 +203,7 @@ p{
 .navbar .container-fluid .navbar-header .navbar-brand {
     color: greenyellow;
     background-repeat: no-repeat;
-    padding-left: 20px;
-    padding-right: 5px; 
+    padding-left: 35px;
     font-family: 'Exo';
     font-size: 40px;
     transform: skew(-15deg);
@@ -231,13 +230,7 @@ p{
 }
 @media screen and (max-width: 770px) {
     body {
-        background-color: black;
-    }
-    .nav {
-        display: none;
-    }
-    .conentDiv{
-        display: none;
+        width: 770px;
     }
 }
 @media (max-width: 1500px) {

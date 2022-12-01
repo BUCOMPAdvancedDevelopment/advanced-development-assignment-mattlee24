@@ -77,6 +77,13 @@ def fetch_user_details(uid, limit):
 
     return userData
 
+def delete_user_details(user_id):
+
+    ancestor = datastore_client.key('UserId', user_id)
+    query = datastore_client.query(kind='userDetails', ancestor=ancestor)
+    data = query.fetch()
+    datastore_client.delete_multi(data)
+
 
 @app.route('/')
 @app.route('/index')
@@ -185,8 +192,13 @@ def editGame(slug):
     data=mongoDb.get_single_game(slug)
     return render_template("editGameDetails.html", data=data)
 
-@app.route('/account') 
+@app.route('/account', methods=["GET", "POST"]) 
 def account(): 
+
+    if request.method == "POST":
+        user_id = request.form["user_id"]
+    
+        delete_user_details(user_id)
 
     id_token = request.cookies.get("token")
 
@@ -224,6 +236,12 @@ def accountInfo():
         
     data = mongoDb.get_games()
     return render_template('accountInfo.html', data=data, user_data=user_data) 
+
+
+@app.route('/deleteUserdata', methods=["DELETE"]) 
+def deleteExtraAccountInfo(): 
+        
+    return redirect('/account') 
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App

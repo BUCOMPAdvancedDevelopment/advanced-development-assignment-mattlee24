@@ -5,7 +5,7 @@
 {% set active_page = "games" %} 
 {% block body %}
 <div class="conentDiv-games">   
-    <iframe id="vid" src="https://www.youtube.com/embed/Wqsg2vWHZBM?autoplay=1&mute=1&showinfo=0?modestbranding=0&controls=0" frameborder="0" allow="autoplay"></iframe>                             
+    <!-- <iframe id="vid" src="https://www.youtube.com/embed/Wqsg2vWHZBM?autoplay=1&mute=1&showinfo=0?modestbranding=0&controls=0" frameborder="0" allow="autoplay"></iframe>                              -->
     <div class="mainDiv-game">
         {% for game in data %}
             <div>
@@ -16,8 +16,10 @@
                 <h1 id="gameName">{{ game.name }}</h1>
                 {% if game.price == "FREE" %}
                     <p id="price">{{ game.price }}</p>
-                {% else %}
+                {% elif game.price == number %}
                     <p id="price">£{{ game.price }}</p>
+                {% else %}
+                <p id="price" class="badPricing">Error, bad pricing</p>
                 {% endif %}
                 <p id="rating">Rating: {{ game.rating }}/5 </p>
                 <p id="About">{{ game.description }}</p>

@@ -63,6 +63,9 @@ body{
     font-weight: bold;
     margin-top: -10px;
 }
+.badPricing{
+    color: red !important;
+}
 #rating{
     margin-top: -15px;
     font-size: 15px;

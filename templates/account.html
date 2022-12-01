@@ -7,13 +7,38 @@
 <a id="detailsBtn" href="/accountInfo"><span class="glyphicon glyphicon-list"></span></a>
 <div class="mainDiv-account">
     <div class="userCard">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png"  width="200" height="200">
-        {% for user in data %}
-            <p>{{ user['gamertag'] }}</p>
-            <p>{{ user['FavouriteGame'] }}</p>
-            <p>{{ user['genre'] }}</p>
-            <p>{{ user['platform'] }}</p>
-        {% endfor %}
+        <img src="https://www.wallpapertip.com/wmimgs/80-805348_game-wallpapers-hd-collection-for-free-download-gaming.jpg"  class="coverImage">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png"  class="profileImage" width="200" height="200">
+        <div class="infoText">
+            {% if user_data %}
+            <div>
+                <p>Name:</p><p class="dataText">{{ user_data['name'] }}</p>
+            </div>
+            <div>
+                <p>Email:</p><p class="dataText">{{ user_data['email'] }}</p>
+            </div>
+            {% endif %}
+            {% if data == "null" %}
+            {% else %}
+                {% for user in data %}
+                <div>
+                    <p>Gamertag:</p><p class="dataText">{{ user['gamertag'] }}</p>
+                </div>
+                <div>  
+                    <p>Favourite Game:</p><p class="dataText">{{ user['FavouriteGame'] }}</p>
+                </div>
+                <div>  
+                    <p>Preferred Genre:</p><p class="dataText">{{ user['genre'] }}</p>
+                </div>
+                <div id="bottomTextDiv">
+                    <p>Most-used Platform:</p><p class="dataText" id="bottomText">{{ user['platform'] }}</p>
+                </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="bottomDiv">
+            <h1 class="brand">GameZone</h1>
+        </div>
     </div>
     <footer class="footer">
         <h1>© 2022 Matt Lee</h1>

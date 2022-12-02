@@ -14,7 +14,7 @@ body {
 }
 /* Track */
 ::-webkit-scrollbar-track {
-    background: #f1f1f1; 
+    background: transparent; 
 }
 
 /* Handle */
@@ -35,6 +35,20 @@ p{
     right: 2.5rem;
     top: 1.8rem;
     cursor: pointer;
+}
+#basket{
+    position: absolute;
+    right: 7rem;
+    top: 1.8rem;
+    cursor: pointer;
+}
+.glyphicon.glyphicon-shopping-cart{
+    font-size: 30px;
+    color: greenyellow;
+}
+.glyphicon.glyphicon-shopping-cart:hover{
+    font-size: 30px;
+    color: green;
 }
 .footer{
     position: absolute;

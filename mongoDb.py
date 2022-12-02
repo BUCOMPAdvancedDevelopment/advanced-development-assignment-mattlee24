@@ -1,5 +1,7 @@
 import requests
 import json
+from pymongo import MongoClient
+from bson.json_util import dumps
 
 def get_games():
     url = "https://europe-west2-ad-gamezone.cloudfunctions.net/get_mongodb_games"
@@ -36,5 +38,27 @@ def add_game(new_game):
     uResponse = requests.get(url)
     uResponse
     return new_game
+
+def add_game_to_cart(slug, userID):
+    cluster=MongoClient( "mongodb+srv://dpUser:dpUserPassword@adcoursework.9ybhyss.mongodb.net/?retryWrites=true&w=majority") 
+    db=cluster["Games"] 
+    collection=db["Cart"] 
+    new_item = {
+        "userID": userID,
+        "game": slug,
+    }
+    collection.insert_one(new_item)
+    return new_item
+
+def get_cart():
+    cluster=MongoClient( "mongodb+srv://dpUser:dpUserPassword@adcoursework.9ybhyss.mongodb.net/?retryWrites=true&w=majority") 
+    db=cluster["Games"] 
+    collection=db["Cart"] 
+
+    list_cur = list(collection.find())
+    json_data = dumps(list_cur)
+    data = json.loads(json_data)
+
+    return data
 
 

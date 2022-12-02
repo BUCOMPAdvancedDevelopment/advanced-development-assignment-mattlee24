@@ -2,8 +2,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Mr+Dafoe&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Exo:wght@900&display=swap');
 
-
-
 body{
     overflow-y: hidden;
 }
@@ -83,9 +81,9 @@ body{
     font-size: 15px;
 }
 #delete-game{
-    position: relative;
-    top: 2.5rem;
-    right: 5rem;
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
 }
 .glyphicon.glyphicon-trash {
     font-size: 30px;
@@ -95,4 +93,37 @@ body{
     color: red;
     cursor: pointer;
 }
+#addToBasket{
+    position: absolute;
+    background-color: yellowgreen;
+    top: 8rem;
+    right: 2rem;
+    width: 20rem;
+    height: fit-content;
+    border-radius: 5rem;
+    font-family: "Exo";
+    color: rgb(40, 41, 43);
+}
+#addToBasket:hover{
+    background-color: green;
+}
+.addToBasket{
+    position: absolute;
+    background-color: yellowgreen;
+    top: 8rem;
+    right: 2rem;
+    width: 20rem;
+    height: fit-content;
+    border-radius: 5rem;
+    font-family: "Exo";
+    color: rgb(40, 41, 43);
+    text-align: center;
+}
+.addToBasket:hover{
+    background-color: green;
+    cursor: pointer;
+    color: rgb(40, 41, 43);
+    text-decoration: none;
+}
+
 

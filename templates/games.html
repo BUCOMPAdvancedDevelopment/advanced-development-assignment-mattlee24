@@ -6,6 +6,10 @@
 {% block body %}
 <a id="add-gameBtn" hidden=true onclick="addGameform()"><span class="glyphicon glyphicon-plus"></span></a>
 <a id="edit-gameBtn" name="edit" hidden=true value="edit" href="/editgames"><span class="glyphicon glyphicon-pencil"></span></a>
+<a id="basket" href="/basket"><span class="glyphicon glyphicon-shopping-cart"></span></a> 
+{% if cart|length > 0 %}
+    <h1 class="cartLength">{{cart|length}}</h1>
+{% endif %}
 <form action="/games" method="POST" hidden=true id="form-popup">
     <h1>Add Game</h1>
     <label for="gameSlug">Game Slug:</label>

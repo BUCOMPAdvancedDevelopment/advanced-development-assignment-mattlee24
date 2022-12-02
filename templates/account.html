@@ -11,12 +11,6 @@
         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Default_pfp.svg/1200px-Default_pfp.svg.png"  class="profileImage" width="200" height="200">
         <div class="infoText">
             {% if user_data %}
-            <form action="/account" method="POST">
-                <input type="text" id="user_id" name="user_id" value="{{user_data['user_id']}}" hidden required><br>
-                <input type="submit" value="Delete Account Details" name="deleteBtn" id="submitBtn">
-            </form>
-            {% endif %}
-            {% if user_data %}
             <div>
                 <p>Name:</p><p class="dataText">{{ user_data['name'] }}</p>
             </div>
@@ -42,6 +36,12 @@
                 {% endfor %}
             {% endif %}
         </div>
+        {% if data != "null" %}
+            <form action="/account" method="POST">
+                <input type="text" id="user_id" name="user_id" value="{{user_data['user_id']}}" hidden required><br>
+                <input type="submit" value="Delete data (Except name and email)" name="deleteBtn" id="deleteBtn">
+            </form>
+        {% endif %}
         <div class="bottomDiv">
             <h1 class="brand">GameZone</h1>
         </div>

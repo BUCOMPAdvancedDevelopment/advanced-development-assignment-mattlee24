@@ -76,4 +76,4 @@ def add_game(request):
     passed_new_game = json.loads(request.args.get('new_game'))
     
     collection.insert_one(passed_new_game)
-    return new_game
+    return passed_new_game

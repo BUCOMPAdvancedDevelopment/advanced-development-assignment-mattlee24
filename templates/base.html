@@ -46,8 +46,8 @@
                     {% endfor %} 
                 </ul>
             </div>
-        </nav>    
-        <a id="sign-out" hidden=true onclick="signOut()"><span class="glyphicon glyphicon-log-out"></span></a>
+        </nav>   
+        <a id="sign-out" onclick="signOut()"><span class="glyphicon glyphicon-log-out"></span></a>
         <main role="main" class="container">
             <!-- Content -->
             {% block body %} 
@@ -119,7 +119,6 @@
                 firebase.auth().onAuthStateChanged(function(user) {
                 if (user) {
                     if (user.uid == "khYSJcAAfZSFFtTMGdIoxm3Nza62" || user.uid == "6gK1VLVjclTBcpggnuTIl3iOktm1" ){
-                        let html = user.displayName;
                         document.getElementById("delete-game").style.display='block';
                     } else {
                         console.log("User not authorised to use CRUD")

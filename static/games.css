@@ -3,7 +3,7 @@
 #add-gameBtn{
     position: absolute;
     top: 1.8rem;
-    right: 7rem;
+    right: 11rem;
 }
 .glyphicon.glyphicon-plus {
     font-size: 30px;
@@ -16,7 +16,7 @@
 #edit-gameBtn{
     position: absolute;
     top: 1.8rem;
-    right: 11rem;
+    right: 15rem;
 }
 .glyphicon.glyphicon-pencil {
     font-size: 30px;
@@ -162,6 +162,20 @@
     transform: skew(-15deg);
     letter-spacing: 0.01em;
     text-shadow: 0 0 0.05em yellowgreen, 0 0 0.2em black, 0 0 0.3em black;
+}
+.cartLength{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    color: white;
+    border-radius: 1000px;
+    font-size: 12px;
+    height: 2rem;
+    top: -0.8rem;
+    right: 6.5rem;
+    width: 2rem;
+    background-color: red;
 }
 @media (max-width: 1980px) {
     .conentDiv-games{

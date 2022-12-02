@@ -1,0 +1,26 @@
+{% extends "base.html" %} 
+{% block head %}
+    <link href="../static/basket.css" rel="stylesheet">
+{% endblock %}  
+{% block body %} 
+<a id="basket" href="/basket"><span class="glyphicon glyphicon-shopping-cart"></span></a>
+<div class="conentDiv"> 
+    <h1 class="basketTitle">Your Basket: </h1>
+    <div class="rowDiv">   
+        {% for game in cart %}                                    
+            <div class="topContainer-basket">
+                <div class="mainDiv-basket-pic">
+                    <img class="coverImage" src="https://wallpapercave.com/wp/wp11162731.jpg">
+                </div>
+                <div class="mainDiv-basket-text">
+                    <h1>Price: £21.99</h1>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <h1 class="basketTitle">Total: £65.97</h1>   
+    <footer class="footer">
+        <h1>© 2022 Matt Lee</h1>
+    </footer>
+</div>
+{% endblock %} 

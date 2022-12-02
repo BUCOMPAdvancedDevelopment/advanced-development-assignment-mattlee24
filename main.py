@@ -77,6 +77,12 @@ def fetch_user_details(uid, limit):
 
     return userData
 
+"""
+    delete_user_info() function deletes all the user's data from the google cloud datastore.
+    :param user_id: The user's user id (set by firebaseAuth)
+    :return: Returns a confirmation string
+"""
+
 def delete_user_details(user_id):
 
     ancestor = datastore_client.key('UserId', user_id)
@@ -142,20 +148,28 @@ def games():
             "description": description,
         }
         new_game = json.dumps(new_game_json)
-        print(new_game)
         mongoDb.add_game(new_game)
 
+    cart = mongoDb.get_cart()
     data = mongoDb.get_games()
-    return render_template('games.html', data=data) 
+    return render_template('games.html', data=data, cart=cart) 
 
 @app.route('/<slug>', methods=['GET'])
 def single_game(slug):
     data=mongoDb.get_single_game(slug)
-    return render_template('gamesDetails.html', data=data)
+    id_token = request.cookies.get("token")
+    claims = google.oauth2.id_token.verify_firebase_token(
+                id_token, firebase_request_adapter)
+    return render_template('gamesDetails.html', data=data, user_data=claims)
 
 @app.route('/deleteGame/<slug>', methods=['DELETE'])
 def delete_game(slug):
     mongoDb.delete_game(slug)
+    return render_template('games.html')
+
+@app.route('/addToCart/<slug>/<userID>', methods=['POST'])
+def addToCart(slug, userID):
+    mongoDb.add_game_to_cart(slug, userID)
     return render_template('games.html')
 
 @app.route('/editgames', methods=["GET", "POST"]) 
@@ -191,6 +205,11 @@ def editgames():
 def editGame(slug):
     data=mongoDb.get_single_game(slug)
     return render_template("editGameDetails.html", data=data)
+
+@app.route('/basket') 
+def storeBasket(): 
+    cart = mongoDb.get_cart()
+    return render_template("basket.html", cart=cart) 
 
 @app.route('/account', methods=["GET", "POST"]) 
 def account(): 
@@ -243,13 +262,6 @@ def deleteExtraAccountInfo():
         
     return redirect('/account') 
 
+# Only Used when running locally
 if __name__ == '__main__':
-    # This is used when running locally only. When deploying to Google App
-    # Engine, a webserver process such as Gunicorn will serve the app. This
-    # can be configured by adding an `entrypoint` to app.yaml.
-
-    # Flask's development server will automatically serve static files in
-    # the "static" directory. See:
-    # http://flask.pocoo.org/docs/1.0/quickstart/#static-files. Once deployed,
-    # App Engine itself will serve those files as configured in app.yaml.
     app.run(host='0.0.0.0', port=5000, debug=True)

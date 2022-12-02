@@ -11,12 +11,15 @@
             <div>
                 <img class="gameImage" src="{{ game.background_image }}">
             </div>
+            {% if user_data %}
+                <h1 hidden="true" id="user_id">{{ user_data['user_id'] }}</h1>
+            {% endif %}
             <h1 hidden="true" id="slug">{{ game.slug }}</h1>
             <div class="infoDiv">
                 <h1 id="gameName">{{ game.name }}</h1>
                 {% if game.price == "FREE" %}
                     <p id="price">{{ game.price }}</p>
-                {% elif game.price == number %}
+                {% elif game.price | float %}
                     <p id="price">£{{ game.price }}</p>
                 {% else %}
                 <p id="price" class="badPricing">Error, bad pricing</p>
@@ -26,6 +29,13 @@
             </div>
         {%  endfor %}
         <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID?autoplay=1" allow='autoplay'></iframe> -->
+        {% for game in data %}
+            {% if game.price == 'FREE' %}
+                <button id="addToBasket">Download</button>
+            {% else %}
+                <a class="addToBasket" onclick="addToCart()">Add to Cart</a>
+            {% endif %}
+        {% endfor %}
         <a id="delete-game" hidden=true onclick="deleteGame(slug)"><span class="glyphicon glyphicon-trash"></span></a>
     </div>
 </div>
@@ -35,6 +45,23 @@
         'use strict'
         const xhr = new XMLHttpRequest();
         xhr.open('DELETE', '/deleteGame/' + String(slug), true);
+        xhr.onload = function () {
+            if (xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 300){
+                location.href = "/games"
+
+            } else {
+                alert("Error: " + xhr.status)
+            }
+        }
+        xhr.send();
+    }
+    function addToCart(){
+        slug = document.getElementById("slug").innerHTML;
+        userID = document.getElementById("user_id").innerHTML;
+        console.log(slug, userID)
+        'use strict'
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', '/addToCart/' + String(slug)+"/"+ String(userID), true);
         xhr.onload = function () {
             if (xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 300){
                 location.href = "/games"

@@ -1,0 +1,51 @@
+.topContainer-order{
+    margin-bottom: 2rem !important;
+    margin-top: 2rem !important;
+    background-color: rgb(40, 41, 43);
+    width: 30%;
+    padding: 1rem;
+    margin: auto;
+    display: flex;
+    margin: auto;
+}
+.rowDiv{
+    margin-bottom: 10rem;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10rem;
+    align-self: center;
+}
+#cost {
+    font-family: 'Exo';
+    color: yellowgreen;
+    text-align: center;
+    padding: 1rem;
+    font-weight: bold;
+    font-size: 2.5rem;
+    align-self: center;
+    justify-content: center;
+}
+#orderName {
+    font-family: 'Exo';
+    font-size: 1.5rem;
+    color: yellowgreen;
+    text-align: left;
+    padding-left: 10% !important;
+    padding: 0.2rem;
+    width: 100%;
+    align-self: center;
+    justify-self: center;
+}
+#orderNameDiv{
+    display: flex;
+    flex-wrap: wrap;
+    width: 60%;
+    border-right-style: solid;
+    border-right-color: black;
+    border-right-width: 0.05rem;
+}
+#costDiv{
+    margin: auto;
+    align-self: center;
+    width: 40%;
+}

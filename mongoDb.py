@@ -39,7 +39,38 @@ def add_game(new_game):
     uResponse
     return new_game
 
-def add_game_to_cart(name, userID, price):
+def get_cartbyID(userID):
+    cluster=MongoClient( "mongodb+srv://dpUser:dpUserPassword@adcoursework.9ybhyss.mongodb.net/?retryWrites=true&w=majority") 
+    db=cluster["Games"] 
+    collection=db["Cart"] 
+    collectionOrders=db["Orders"] 
+
+    myCursor = None
+
+    orderTotal = 0
+
+    orderItems = []
+
+    item_query = {"userID": {"$eq": userID}}
+
+    myCursor = collection.find({"$and": [item_query]})
+
+    for item in myCursor:
+        orderTotal = orderTotal + float(item['price'])
+        orderTotal = round(orderTotal, 2)
+        orderItems.append(str(item['name']))
+        collection.delete_one(item)
+    new_item = {
+        "userID": userID,
+        "gameNames": orderItems,
+        "cost": orderTotal,
+    }
+
+    collectionOrders.insert_one(new_item)
+
+    return userID
+
+def add_game_to_cart(name, userID, price, image):
     cluster=MongoClient( "mongodb+srv://dpUser:dpUserPassword@adcoursework.9ybhyss.mongodb.net/?retryWrites=true&w=majority") 
     db=cluster["Games"] 
     collection=db["Cart"] 
@@ -47,20 +78,21 @@ def add_game_to_cart(name, userID, price):
         "userID": userID,
         "name": name,
         "price": price,
+        "image": image,
     }
     collection.insert_one(new_item)
     return new_item
 
-def delete_game_from_cart(slug):
+def delete_game_from_cart(name):
     cluster=MongoClient( "mongodb+srv://dpUser:dpUserPassword@adcoursework.9ybhyss.mongodb.net/?retryWrites=true&w=majority") 
     db=cluster["Games"] 
     collection=db["Cart"] 
 
-    item_query = {"name": {"$eq": slug}}
+    item_query = {"name": {"$eq": name}}
     print(item_query)
     collection.delete_one({"$and": [item_query]})
 
-    return slug
+    return name
 
 def get_cart():
     cluster=MongoClient( "mongodb+srv://dpUser:dpUserPassword@adcoursework.9ybhyss.mongodb.net/?retryWrites=true&w=majority") 
@@ -68,6 +100,19 @@ def get_cart():
     collection=db["Cart"] 
 
     list_cur = list(collection.find())
+    json_data = dumps(list_cur)
+    data = json.loads(json_data)
+
+    return data
+
+def get_orders(userID):
+    cluster=MongoClient( "mongodb+srv://dpUser:dpUserPassword@adcoursework.9ybhyss.mongodb.net/?retryWrites=true&w=majority") 
+    db=cluster["Games"] 
+    collection=db["Orders"] 
+
+    item_query = {"userID": {"$eq": userID}}
+
+    list_cur = list(collection.find({"$and": [item_query]}))
     json_data = dumps(list_cur)
     data = json.loads(json_data)
 

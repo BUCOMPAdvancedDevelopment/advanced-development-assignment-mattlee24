@@ -5,13 +5,13 @@
     display: flex;
     margin-bottom: 2rem !important;
     background-color: rgb(40, 41, 43);
-    height: 30%;
+    height: auto;
     width: 30%;
     position: relative;
     margin: auto;
 }
 .mainDiv-basket-pic{
-    width: 20%;
+    width: 30%;
 }
 .coverImage{
     width: 100%;
@@ -19,9 +19,12 @@
     object-fit: cover;  
 }
 .mainDiv-basket-text{
-    margin: auto;
     color: yellowgreen;
     font-family: 'Exo';
+    padding: 3rem;
+    padding-right: 5rem !important;
+    width: 100%;
+    text-align: center;
 }
 .basketTitle{
     font-family: 'Exo';
@@ -36,22 +39,74 @@
     margin: auto;
     flex-wrap: wrap;
 }
-.glyphicon.glyphicon-trash {
-    font-size: 30px;
-    color: greenyellow;
-}
-.glyphicon.glyphicon-trash:hover {
-    font-size: 30px;
-    color: red;
-}
 #priceDiv{
     display: flex;
+    justify-content: center;
 }
 #totalDiv{
     display: flex;
     margin: auto;
     color: yellowgreen;
     font-family: 'Exo';
+    margin-bottom: 2rem;
+    justify-content: center;
+}
+#delete-item{
+    position: absolute;
+    right: 1rem;
+    top: 5rem;
+    cursor: pointer;
+    padding-right: 1rem;
+}
+#deleteCartItemBtn{
+    background-color: yellowgreen;
+    width: 100%;
+    position: relative;
+    margin-top: 2rem;
+    border-radius: 5rem;
+    font-family: "Exo";
+    color: rgb(40, 41, 43);
+}
+#deleteCartItemBtn:hover{
+    background-color: red;
+}
+#checkout{
     margin-bottom: 10rem;
+    background-color: yellowgreen;
+    color: rgb(40, 41, 43);
+    font-family: 'Exo';
+    font-size: x-large;
+    width: 100%;
+    justify-content: center;
+    border-radius: 5rem;
+    padding: 1rem;
+}
+#checkout:hover{
+    background-color: ghostwhite;
+}
+#myOrders{
+    margin-bottom: 10rem;
+    background-color: yellowgreen;
+    color: rgb(40, 41, 43);
+    font-family: 'Exo';
+    font-size: x-large;
+    border-radius: 5rem;
+    margin-left: 2rem;
+    padding: 1rem;
+}
+#myOrders:hover{
+    background-color: ghostwhite;
+}
+#message{
+    text-align: center;
+    background-color: greenyellow;
+    border-width: 0px;
+    width: 50%;
+    margin: auto;
+}
+#bottomBtnDiv{
+    display: flex;
+    margin: auto;
+    width: 50%;
     justify-content: center;
 }

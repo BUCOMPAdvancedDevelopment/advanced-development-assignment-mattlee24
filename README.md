@@ -4,7 +4,7 @@
 
 #### To access Site on the cloud, use the following link: 
 
-https://ad-gamezone.ew.r.appspot.com
+https://ad-gamezone.ew.r.appspot.com  (Not optimised for mobile!)
 
 # Local Server Commands
                   

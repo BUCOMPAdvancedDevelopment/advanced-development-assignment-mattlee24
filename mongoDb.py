@@ -39,16 +39,28 @@ def add_game(new_game):
     uResponse
     return new_game
 
-def add_game_to_cart(slug, userID):
+def add_game_to_cart(name, userID, price):
     cluster=MongoClient( "mongodb+srv://dpUser:dpUserPassword@adcoursework.9ybhyss.mongodb.net/?retryWrites=true&w=majority") 
     db=cluster["Games"] 
     collection=db["Cart"] 
     new_item = {
         "userID": userID,
-        "game": slug,
+        "name": name,
+        "price": price,
     }
     collection.insert_one(new_item)
     return new_item
+
+def delete_game_from_cart(slug):
+    cluster=MongoClient( "mongodb+srv://dpUser:dpUserPassword@adcoursework.9ybhyss.mongodb.net/?retryWrites=true&w=majority") 
+    db=cluster["Games"] 
+    collection=db["Cart"] 
+
+    item_query = {"name": {"$eq": slug}}
+    print(item_query)
+    collection.delete_one({"$and": [item_query]})
+
+    return slug
 
 def get_cart():
     cluster=MongoClient( "mongodb+srv://dpUser:dpUserPassword@adcoursework.9ybhyss.mongodb.net/?retryWrites=true&w=majority") 

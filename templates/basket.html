@@ -6,21 +6,58 @@
 <a id="basket" href="/basket"><span class="glyphicon glyphicon-shopping-cart"></span></a>
 <div class="conentDiv"> 
     <h1 class="basketTitle">Your Basket: </h1>
-    <div class="rowDiv">   
-        {% for game in cart %}                                    
+    {% set total = {'value': 0} %}   
+    <div class="rowDiv"> 
+        {% for game in cart %}    
+            {% if total.update({"value": game.price|float + total.value|float }) %} {% endif %}                            
             <div class="topContainer-basket">
                 <div class="mainDiv-basket-pic">
                     <img class="coverImage" src="https://wallpapercave.com/wp/wp11162731.jpg">
                 </div>
                 <div class="mainDiv-basket-text">
-                    <h1>Price: £21.99</h1>
+                    <h3 id="gameName">{{game.name}}</h3>
+                    <div id="priceDiv">
+                        <h3>Price: £</h3>
+                        <h3 id="price">{{game.price}}</h3>
+                    </div>
+                    <a id="sign-out" onclick="deleteCartItem()"><span class="glyphicon glyphicon-trash"></span></a>
                 </div>
             </div>
         {% endfor %}
     </div>
-    <h1 class="basketTitle">Total: £65.97</h1>   
+    <div id="totalDiv">
+        <h3>Total Price: £</h3>
+        <h3>{{total.value}}</h3>
+    </div>
     <footer class="footer">
         <h1>© 2022 Matt Lee</h1>
     </footer>
 </div>
+<script>
+    function deleteCartItem(){
+        slug = document.getElementById("gameName").innerHTML;
+        console.log(slug)
+        'use strict'
+        const xhr = new XMLHttpRequest();
+        xhr.open('DELETE', '/deleteFromCart/' + String(slug), true);
+        xhr.onload = function () {
+            if (xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 300){
+                location.href = "/basket"
+            } else {
+                alert("Error: " + xhr.status)
+            }
+        }
+        xhr.send();
+    }
+
+    function totalCost(){
+        price = document.getElementById("price").innerHTML;
+        console.log(price)
+        priceList = []
+        priceList.push(price)
+        console.log(priceList)
+    }
+
+    totalCost()
+</script>
 {% endblock %} 

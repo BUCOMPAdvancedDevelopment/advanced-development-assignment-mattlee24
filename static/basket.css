@@ -36,3 +36,22 @@
     margin: auto;
     flex-wrap: wrap;
 }
+.glyphicon.glyphicon-trash {
+    font-size: 30px;
+    color: greenyellow;
+}
+.glyphicon.glyphicon-trash:hover {
+    font-size: 30px;
+    color: red;
+}
+#priceDiv{
+    display: flex;
+}
+#totalDiv{
+    display: flex;
+    margin: auto;
+    color: yellowgreen;
+    font-family: 'Exo';
+    margin-bottom: 10rem;
+    justify-content: center;
+}

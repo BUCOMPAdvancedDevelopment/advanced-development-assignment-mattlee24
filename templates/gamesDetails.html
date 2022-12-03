@@ -20,7 +20,7 @@
                 {% if game.price == "FREE" %}
                     <p id="price">{{ game.price }}</p>
                 {% elif game.price | float %}
-                    <p id="price">£{{ game.price }}</p>
+                    <p id="price">{{ game.price }}</p>
                 {% else %}
                 <p id="price" class="badPricing">Error, bad pricing</p>
                 {% endif %}
@@ -56,12 +56,13 @@
         xhr.send();
     }
     function addToCart(){
-        slug = document.getElementById("slug").innerHTML;
+        name = document.getElementById("gameName").innerHTML;
         userID = document.getElementById("user_id").innerHTML;
-        console.log(slug, userID)
+        price = document.getElementById("price").innerHTML;
+        console.log(name, userID, price)
         'use strict'
         const xhr = new XMLHttpRequest();
-        xhr.open('POST', '/addToCart/' + String(slug)+"/"+ String(userID), true);
+        xhr.open('POST', '/addToCart/' + String(name) +"/"+ String(userID) +"/"+ String(price), true);
         xhr.onload = function () {
             if (xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 300){
                 location.href = "/games"

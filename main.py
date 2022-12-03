@@ -167,10 +167,21 @@ def delete_game(slug):
     mongoDb.delete_game(slug)
     return render_template('games.html')
 
-@app.route('/addToCart/<slug>/<userID>', methods=['POST'])
-def addToCart(slug, userID):
-    mongoDb.add_game_to_cart(slug, userID)
+@app.route('/basket') 
+def storeBasket(): 
+    cart = mongoDb.get_cart()
+    return render_template("basket.html", cart=cart) 
+
+@app.route('/addToCart/<name>/<userID>/<price>', methods=['POST'])
+def addToCart(name, userID, price):
+    mongoDb.add_game_to_cart(name, userID, price)
     return render_template('games.html')
+
+@app.route('/deleteFromCart/<slug>', methods=['DELETE'])
+def deleteFromCart(slug):
+    print(slug)
+    mongoDb.delete_game_from_cart(slug)
+    return render_template('basket.html')
 
 @app.route('/editgames', methods=["GET", "POST"]) 
 def editgames():
@@ -205,11 +216,6 @@ def editgames():
 def editGame(slug):
     data=mongoDb.get_single_game(slug)
     return render_template("editGameDetails.html", data=data)
-
-@app.route('/basket') 
-def storeBasket(): 
-    cart = mongoDb.get_cart()
-    return render_template("basket.html", cart=cart) 
 
 @app.route('/account', methods=["GET", "POST"]) 
 def account(): 
@@ -255,12 +261,6 @@ def accountInfo():
         
     data = mongoDb.get_games()
     return render_template('accountInfo.html', data=data, user_data=user_data) 
-
-
-@app.route('/deleteUserdata', methods=["DELETE"]) 
-def deleteExtraAccountInfo(): 
-        
-    return redirect('/account') 
 
 # Only Used when running locally
 if __name__ == '__main__':

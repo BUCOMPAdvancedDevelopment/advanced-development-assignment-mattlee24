@@ -1,0 +1,25 @@
+{% extends "base.html" %} 
+{% block head %}
+    <link href="../static/myOrders.css" rel="stylesheet">
+{% endblock %}  
+{% block body %} 
+<div class="conentDiv"> 
+    <div class="rowDiv"> 
+        {% for order in data %}
+            <div class="topContainer-order">
+                <div id="orderNameDiv">
+                    {% for item in order.gameNames %}  
+                        <h3 id="orderName">{{item}}</h3>
+                    {% endfor %}
+                </div>
+                <div id="costDiv">
+                    <h3 id="cost">Order Total: £{{order.cost}}</h3>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <footer class="footer">
+        <h1>© 2022 Matt Lee</h1>
+    </footer>
+</div>
+{% endblock %} 

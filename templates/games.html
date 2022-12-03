@@ -7,9 +7,13 @@
 <a id="add-gameBtn" hidden=true onclick="addGameform()"><span class="glyphicon glyphicon-plus"></span></a>
 <a id="edit-gameBtn" name="edit" hidden=true value="edit" href="/editgames"><span class="glyphicon glyphicon-pencil"></span></a>
 <a id="basket" href="/basket"><span class="glyphicon glyphicon-shopping-cart"></span></a> 
-{% if cart|length > 0 %}
-    <h1 class="cartLength">{{cart|length}}</h1>
-{% endif %}
+{% set total = {'value': 0} %}
+{% for item in cart %}
+    {% if item.userID == user_data['user_id'] %}
+        {% if total.update({"value": 1 + total.value|int }) %} {% endif %}
+            <h1 class="cartLength">{{total.value}}</h1>
+    {% endif %}
+{% endfor %}
 <form action="/games" method="POST" hidden=true id="form-popup">
     <h1>Add Game</h1>
     <label for="gameSlug">Game Slug:</label>

@@ -149,10 +149,14 @@ def games():
         }
         new_game = json.dumps(new_game_json)
         mongoDb.add_game(new_game)
+    
+    id_token = request.cookies.get("token")
+    claims = google.oauth2.id_token.verify_firebase_token(
+                id_token, firebase_request_adapter)
 
     cart = mongoDb.get_cart()
     data = mongoDb.get_games()
-    return render_template('games.html', data=data, cart=cart) 
+    return render_template('games.html', data=data, cart=cart, user_data=claims) 
 
 @app.route('/<slug>', methods=['GET'])
 def single_game(slug):
@@ -167,10 +171,45 @@ def delete_game(slug):
     mongoDb.delete_game(slug)
     return render_template('games.html')
 
-@app.route('/addToCart/<slug>/<userID>', methods=['POST'])
-def addToCart(slug, userID):
-    mongoDb.add_game_to_cart(slug, userID)
+@app.route('/basket') 
+def storeBasket(): 
+    id_token = request.cookies.get("token")
+    claims = google.oauth2.id_token.verify_firebase_token(
+                id_token, firebase_request_adapter)
+    cart = mongoDb.get_cart()
+    return render_template("basket.html", cart=cart, user_data=claims) 
+
+@app.route('/addToCart/<name>/<userID>/<price>/<path:image>', methods=['POST'])
+def addToCart(name, userID, price, image):
+    mongoDb.add_game_to_cart(name, userID, price, image)
     return render_template('games.html')
+
+@app.route('/deleteFromCart', methods=['POST'])
+def deleteFromCart():
+    if request.method == "POST":
+        name = request.form["gameName"]
+        print(name)
+        mongoDb.delete_game_from_cart(name)
+        return redirect('/basket')
+
+@app.route('/orderComplete', methods=['POST'])
+def orderComplete():
+    id_token = request.cookies.get("token")
+    claims = google.oauth2.id_token.verify_firebase_token(
+                id_token, firebase_request_adapter)
+    if request.method == "POST":
+        mongoDb.get_cartbyID(claims['user_id'])
+    flash('Order Successful', 'success')
+    return render_template('basket.html')
+
+@app.route('/myOrders')
+def myOrders():
+    id_token = request.cookies.get("token")
+    claims = google.oauth2.id_token.verify_firebase_token(
+                id_token, firebase_request_adapter)
+    data = mongoDb.get_orders(claims['user_id'])
+    cart = mongoDb.get_cart()
+    return render_template('myOrders.html', data=data, cart=cart)
 
 @app.route('/editgames', methods=["GET", "POST"]) 
 def editgames():
@@ -205,11 +244,6 @@ def editgames():
 def editGame(slug):
     data=mongoDb.get_single_game(slug)
     return render_template("editGameDetails.html", data=data)
-
-@app.route('/basket') 
-def storeBasket(): 
-    cart = mongoDb.get_cart()
-    return render_template("basket.html", cart=cart) 
 
 @app.route('/account', methods=["GET", "POST"]) 
 def account(): 
@@ -255,12 +289,6 @@ def accountInfo():
         
     data = mongoDb.get_games()
     return render_template('accountInfo.html', data=data, user_data=user_data) 
-
-
-@app.route('/deleteUserdata', methods=["DELETE"]) 
-def deleteExtraAccountInfo(): 
-        
-    return redirect('/account') 
 
 # Only Used when running locally
 if __name__ == '__main__':

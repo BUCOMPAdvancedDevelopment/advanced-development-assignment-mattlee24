@@ -10,6 +10,7 @@
         {% for game in data %}
             <div>
                 <img class="gameImage" src="{{ game.background_image }}">
+                <h1 id="image" hidden=true>{{ game.background_image }}</h1>
             </div>
             {% if user_data %}
                 <h1 hidden="true" id="user_id">{{ user_data['user_id'] }}</h1>
@@ -20,28 +21,30 @@
                 {% if game.price == "FREE" %}
                     <p id="price">{{ game.price }}</p>
                 {% elif game.price | float %}
-                    <p id="price">£{{ game.price }}</p>
+                    <div id="priceDiv">
+                        <h3>Price: £</h3>
+                        <h3 id="price">{{game.price}}</h3>
+                    </div>
                 {% else %}
                 <p id="price" class="badPricing">Error, bad pricing</p>
                 {% endif %}
                 <p id="rating">Rating: {{ game.rating }}/5 </p>
                 <p id="About">{{ game.description }}</p>
+                {% if game.price == 'FREE' %}
+                    <button id="addToBasket">Download</button>
+                {% else %}
+                    <a class="addToBasket" onclick="addToCart()">Add to Cart</a>
+                {% endif %}
             </div>
         {%  endfor %}
-        <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID?autoplay=1" allow='autoplay'></iframe> -->
-        {% for game in data %}
-            {% if game.price == 'FREE' %}
-                <button id="addToBasket">Download</button>
-            {% else %}
-                <a class="addToBasket" onclick="addToCart()">Add to Cart</a>
-            {% endif %}
-        {% endfor %}
         <a id="delete-game" hidden=true onclick="deleteGame(slug)"><span class="glyphicon glyphicon-trash"></span></a>
+        
     </div>
 </div>
 <script>
     function deleteGame(slug){
         slug = document.getElementById("slug").innerHTML;
+        console.log(slug)
         'use strict'
         const xhr = new XMLHttpRequest();
         xhr.open('DELETE', '/deleteGame/' + String(slug), true);
@@ -56,12 +59,17 @@
         xhr.send();
     }
     function addToCart(){
-        slug = document.getElementById("slug").innerHTML;
+        name = document.getElementById("gameName").innerHTML;
         userID = document.getElementById("user_id").innerHTML;
-        console.log(slug, userID)
+        price = document.getElementById("price").innerHTML;
+        image = (document.getElementById("image").innerHTML);
+        // console.log(escape(image));
+        // console.log(name, userID, price, image)
+        console.log(String(image))
+        // console.log(JSON.stringify(image))
         'use strict'
         const xhr = new XMLHttpRequest();
-        xhr.open('POST', '/addToCart/' + String(slug)+"/"+ String(userID), true);
+        xhr.open('POST', '/addToCart/' + String(name) +"/"+ String(userID) +"/"+ String(price) +"/"+ String(image), true);
         xhr.onload = function () {
             if (xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 300){
                 location.href = "/games"

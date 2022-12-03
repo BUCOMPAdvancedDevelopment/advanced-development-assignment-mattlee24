@@ -5,20 +5,56 @@
 {% block body %} 
 <a id="basket" href="/basket"><span class="glyphicon glyphicon-shopping-cart"></span></a>
 <div class="conentDiv"> 
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}" id="message">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
     <h1 class="basketTitle">Your Basket: </h1>
-    <div class="rowDiv">   
-        {% for game in cart %}                                    
-            <div class="topContainer-basket">
-                <div class="mainDiv-basket-pic">
-                    <img class="coverImage" src="https://wallpapercave.com/wp/wp11162731.jpg">
+    <div class="rowDiv"> 
+        {% set total = {'value': 0} %}
+        {% for game in cart %}
+            {% if user_data['user_id'] == game.userID %}    
+                <div class="topContainer-basket">
+                    <div class="mainDiv-basket-pic">
+                        <img class="coverImage" src={{game.image}}>
+                    </div>
+                    <div class="mainDiv-basket-text">
+                        <h3 id="gameName">{{game.name}}</h3>
+                        <div id="priceDiv">
+                            {% if total.update({"value": game.price|float + total.value|float }) %} {% endif %}
+                            <h3>Price: £</h3>
+                            <h3 id="price">{{game.price}}</h3>
+                        </div>
+                        <form action="/deleteFromCart" method="POST" id="form-popup">
+                            <textarea type="text" id="gameSlug" name="gameName" hidden=true required>{{game.name}}</textarea>
+                            <input type="submit" value="Remove from cart" name="deleteBtn" id="deleteCartItemBtn">
+                        </form>
+                    </div>
                 </div>
-                <div class="mainDiv-basket-text">
-                    <h1>Price: £21.99</h1>
-                </div>
-            </div>
+            {% endif %}
         {% endfor %}
     </div>
-    <h1 class="basketTitle">Total: £65.97</h1>   
+    <div id="totalDiv">
+        <h3>Total Price: £</h3>
+        <h3>{{total.value|round(2, 'floor')}}</h3>
+    </div>
+    <div id="bottomBtnDiv">
+        {% for game in cart %}
+            {% if game.userID == user_data['user_id'] %}
+                {% if loop.first %}
+                    <form action="/orderComplete" method="POST" id="form-popup">
+                        <input type="submit" value="Checkout" name="deleteBtn" id="checkout">
+                    </form>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+        <button name="deleteBtn" id="myOrders" onclick="location.href = '/myOrders'">My Orders</button>
+    </div>
     <footer class="footer">
         <h1>© 2022 Matt Lee</h1>
     </footer>

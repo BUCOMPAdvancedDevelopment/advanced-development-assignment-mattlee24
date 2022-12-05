@@ -78,7 +78,7 @@ def fetch_user_details(uid, limit):
     return userData
 
 """
-    delete_user_info() function deletes all the user's data from the google cloud datastore.
+    delete_user_details() function deletes all the user's data from the google cloud datastore.
     :param user_id: The user's user id (set by firebaseAuth)
     :return: Returns a confirmation string
 """

@@ -5,18 +5,8 @@
 {% block body %} 
 <a id="basket" href="/basket"><span class="glyphicon glyphicon-shopping-cart"></span></a>
 <div class="conentDiv"> 
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                <div class="alert alert-{{ category }}" id="message">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
     <h1 class="basketTitle">Your Basket: </h1>
     <div class="rowDiv"> 
-        {% set total = {'value': 0} %}
         {% for game in cart %}
             {% if user_data['user_id'] == game.userID %}    
                 <div class="topContainer-basket">
@@ -26,7 +16,6 @@
                     <div class="mainDiv-basket-text">
                         <h3 id="gameName">{{game.name}}</h3>
                         <div id="priceDiv">
-                            {% if total.update({"value": game.price|float + total.value|float }) %} {% endif %}
                             <h3>Price: £</h3>
                             <h3 id="price">{{game.price}}</h3>
                         </div>
@@ -41,7 +30,7 @@
     </div>
     <div id="totalDiv">
         <h3>Total Price: £</h3>
-        <h3>{{total.value|round(2, 'floor')}}</h3>
+        <h3>{{total|round(2, 'floor')}}</h3>
     </div>
     <div id="bottomBtnDiv">
         {% for game in cart %}

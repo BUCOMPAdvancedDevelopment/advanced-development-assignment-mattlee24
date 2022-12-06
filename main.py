@@ -1,16 +1,13 @@
 import datetime
 import os
 import logging
-from types import NoneType
 import mongoDb
 import json
-import firebase_admin
 import requests
 from bson.json_util import dumps
 from flask import Flask, flash, jsonify, redirect, render_template, request, url_for
 from google.auth.transport import requests as grequests
 from google.cloud import datastore
-from firebase_admin import credentials, firestore, initialize_app
 import google.oauth2.id_token
 
 
@@ -177,7 +174,22 @@ def storeBasket():
     claims = google.oauth2.id_token.verify_firebase_token(
                 id_token, firebase_request_adapter)
     cart = mongoDb.get_cart()
-    return render_template("basket.html", cart=cart, user_data=claims) 
+
+    priceArray = []
+
+    for item in cart:
+        priceArray.append(item['price'])
+
+    total = float(0)
+    
+    for price in priceArray:
+        total = total + float(price)
+
+    print(priceArray)
+    print(total)
+
+
+    return render_template("basket.html", cart=cart, user_data=claims, total=total) 
 
 @app.route('/addToCart/<name>/<userID>/<price>/<path:image>', methods=['POST'])
 def addToCart(name, userID, price, image):
@@ -197,10 +209,23 @@ def orderComplete():
     id_token = request.cookies.get("token")
     claims = google.oauth2.id_token.verify_firebase_token(
                 id_token, firebase_request_adapter)
+    cart = mongoDb.get_cart()
+    priceArray = []
+    for item in cart:
+        priceArray.append(item['price'])
+
+    total = float(0)
+    
+    for price in priceArray:
+        total = total + float(price)
+        total = round(total, 2)
+    
+    
     if request.method == "POST":
-        mongoDb.get_cartbyID(claims['user_id'])
-    flash('Order Successful', 'success')
-    return render_template('basket.html')
+        mongoDb.get_cartbyID(claims['user_id'], total)
+        flash('Order Successful', 'success')
+        return redirect ('/myOrders')
+    return render_template('myOrders.html')
 
 @app.route('/myOrders')
 def myOrders():

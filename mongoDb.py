@@ -39,7 +39,7 @@ def add_game(new_game):
     uResponse
     return new_game
 
-def get_cartbyID(userID):
+def get_cartbyID(userID, total):
     cluster=MongoClient( "mongodb+srv://dpUser:dpUserPassword@adcoursework.9ybhyss.mongodb.net/?retryWrites=true&w=majority") 
     db=cluster["Games"] 
     collection=db["Cart"] 
@@ -47,7 +47,7 @@ def get_cartbyID(userID):
 
     myCursor = None
 
-    orderTotal = 0
+    orderTotal = total
 
     orderItems = []
 
@@ -56,8 +56,6 @@ def get_cartbyID(userID):
     myCursor = collection.find({"$and": [item_query]})
 
     for item in myCursor:
-        orderTotal = orderTotal + float(item['price'])
-        orderTotal = round(orderTotal, 2)
         orderItems.append(str(item['name']))
         collection.delete_one(item)
     new_item = {

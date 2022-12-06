@@ -22,7 +22,7 @@ pip3 install -r requirements.txt
 4. ctrl-c (Shut down local server)
 
 ### Important - Don't forget: os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = (r"Path to Credentials file on YOUR machine") 
-### It will not run unless this is changed accourdingly.
+### It will not run unless this is changed accordingly.
 
 #
         

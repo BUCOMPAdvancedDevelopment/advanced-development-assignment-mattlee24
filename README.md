@@ -14,6 +14,8 @@ https://ad-gamezone.ew.r.appspot.com  (Not optimised for mobile!...yet)
 2. set FLASK_DEBUG=1 (Devlopment Only)
 3. flask run
 4. ctrl-c (Shut down local server)
+
+!Important - Don't forget: os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = (r"Path to Credentials file on YOUR machine
         
 #### To run unit tests
 

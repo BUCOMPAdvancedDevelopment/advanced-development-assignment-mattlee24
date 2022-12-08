@@ -3,6 +3,11 @@ import json
 from pymongo import MongoClient
 from bson.json_util import dumps
 
+"""
+    the following functions, up to the next comment, call the functions from the cloud and returns the correct data and/or
+    passes in the correct variables the cloud functions needs
+"""
+
 def get_games():
     url = "https://europe-west2-ad-gamezone.cloudfunctions.net/get_mongodb_games"
 
@@ -38,6 +43,11 @@ def add_game(new_game):
     uResponse = requests.get(url)
     uResponse
     return new_game
+
+"""
+    The following functions access mongoDB with values passed from main.py. These funcions allow the pages
+    basket and myOrders to run correctly and remain persistent
+"""
 
 def get_cartbyID(userID, total):
     cluster=MongoClient( "mongodb+srv://dpUser:dpUserPassword@adcoursework.9ybhyss.mongodb.net/?retryWrites=true&w=majority") 

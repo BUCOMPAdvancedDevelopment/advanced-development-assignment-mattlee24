@@ -93,10 +93,18 @@
                     document.cookie = "token=" + token;
                 });
             } else {
+                // Directs the user to the sign in page if they try to manually enter the website url
                 console.log("No user signed in")
                 window.location.replace("/");
             }
             });
+
+            /**
+             *
+             * This function gets decides whether the user is logged in and then works out which user_id is linked
+             * to that account. Then displays the crud options if the user has signed in with an authorised account
+             *
+             */
 
             function addEditBtns() {
                 firebase.auth().onAuthStateChanged(function(user) {
@@ -115,6 +123,14 @@
                 }
                 })
             }
+
+            /**
+             *
+             * This function gets decides whether the user is logged in and then works out which user_id is linked
+             * to that account. Then displays the delete a game option if the user has signed in with an authorised account
+             *
+             */
+
             function deleteBtn() {
                 firebase.auth().onAuthStateChanged(function(user) {
                 if (user) {
@@ -123,15 +139,6 @@
                     } else {
                         console.log("User not authorised to use CRUD")
                     }
-                } else {
-                    console.log("No user signed in")
-                }
-                })
-            }
-            function displayData() {
-                firebase.auth().onAuthStateChanged(function(user) {
-                if (user) {
-                    document.getElementById("account-name").innerHTML=user.uid;
                 } else {
                     console.log("No user signed in")
                 }

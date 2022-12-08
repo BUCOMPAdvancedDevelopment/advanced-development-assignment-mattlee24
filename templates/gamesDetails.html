@@ -5,7 +5,6 @@
 {% set active_page = "games" %} 
 {% block body %}
 <div class="conentDiv-games">   
-    <!-- <iframe id="vid" src="https://www.youtube.com/embed/Wqsg2vWHZBM?autoplay=1&mute=1&showinfo=0?modestbranding=0&controls=0" frameborder="0" allow="autoplay"></iframe>                              -->
     <div class="mainDiv-game">
         {% for game in data %}
             <div>
@@ -42,6 +41,16 @@
     </div>
 </div>
 <script>
+    /**
+     *
+     * This function gets the innerHTML of the element, with id slug.
+     *
+     * This function then creates a DELETE API request to the python flask back-end server with the API path
+     * '/deleteGame/'.
+     *
+     * @param slug   The Games's slug
+     *
+    */
     function deleteGame(slug){
         slug = document.getElementById("slug").innerHTML;
         console.log(slug)
@@ -58,6 +67,17 @@
         }
         xhr.send();
     }
+    /**
+     *
+     * This function gets the user id of the user that is currently signed in with firebase authentication and 
+     * also gets name, price and image from the elements cointaining i'ds gameName, price and image resepectively
+     *
+     * This function then creates a POST API request to the python flask back-end server with the API path
+     * '/addToCart/' + the logged in user's user id.
+     *
+     * @param uid   The user's userID
+     *
+     */
     function addToCart(){
         name = document.getElementById("gameName").innerHTML;
         userID = document.getElementById("user_id").innerHTML;
@@ -80,6 +100,10 @@
         }
         xhr.send();
     }
+    /**
+     *
+     * Everytime 'newline' is found on the page it will remove it and replace it with a line break
+     */
     window.onload = function replace () {
         document.body.innerHTML
                 = document.body.innerHTML

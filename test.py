@@ -3,7 +3,7 @@ import unittest
 import json
 
 class FlaskTestCase(unittest.TestCase):
-    #Ensure all pages load adn behave correctly
+    #Ensure all pages load and behave correctly
     #index page 
     def test_index (self):
         tester = app.test_client(self)
@@ -25,7 +25,7 @@ class FlaskTestCase(unittest.TestCase):
         self.assertEqual(response.status_code,200)
         print("About Page Loaded Correctly")
 
-    #games page
+    # games page
     def test_games (self):
         tester = app.test_client(self)
         response = tester.get('/games', content_type='html/text')
@@ -47,18 +47,16 @@ class FlaskTestCase(unittest.TestCase):
         print("GTAV Game Page Loaded Correctly")
 
 
-
     # # account page
-    # def test_account (self):
-    #     tester = app.test_client(self)
-    #     response = tester.get('/account', content_type='html/text')
-    #     self.assertEqual(response.status_code,200)
-    #     print("Account Page Loaded Correctly")
-
-    def test_add_game (self):
+    def test_account (self):
         tester = app.test_client(self)
-        response = tester.post(
-            "/games", 
+        response = tester.get('/account', content_type='html/text')
+        self.assertEqual(response.status_code,200)
+        print("Account Page Loaded Correctly")
+
+    # def test_add_game (self):
+        tester = app.test_client(self)
+        response = tester.post("/games", 
             data=dict(
                 gameSlug="unit-test-game",
                 gameName="Unit Test Game",
@@ -68,8 +66,7 @@ class FlaskTestCase(unittest.TestCase):
                 gamePrice="44.99",
                 gameDescription="Test Description"
             ),
-            follow_redirects=True
-        )
+            follow_redirects=True)
         self.assertEqual(response.status_code,200)
         print("Test Game has been added")
 
@@ -84,22 +81,26 @@ class FlaskTestCase(unittest.TestCase):
         self.assertEqual(response.status_code,200)
         print("Game deleted successfully!")
 
-    # def test_add_invalid_game(self):
-    #     tester = app.test_client(self)
-    #     response = tester.post(
-    #         "/games", 
-    #         data=dict(
-    #             gameSlug="test-game-invalid-slug",
-    #             gameReleaseDate="2000-01-01",
-    #             gameRating=1,
-    #             gameImage="https://images7.alphacoders.com/821/thumb-1920-821837.jpg",
-    #             gamePrice="44.99",
-    #             gameDescription="Test Description"
-    #         ),
-    #         follow_redirects=True
-    #     )
-    #     self.assertIsNot(response.status_code,200)
-    #     print("Invalid game successfully rejected")
+    #Basket Loaded Correctly 
+    def test_basket (self):
+        tester = app.test_client(self)
+        response = tester.get('/basket', content_type='html/text')
+        self.assertEqual(response.status_code,200)
+        print("Basket Page Loaded successfully!")
+    
+    #MyOrders Loaded Correctly 
+    def test_myOrders (self):
+        tester = app.test_client(self)
+        response = tester.get('/myOrders', content_type='html/text')
+        self.assertEqual(response.status_code,200)
+        print("Orders Page Loaded successfully!")
+
+    #Account Info Loaded Correctly 
+    def test_accountInfo (self):
+        tester = app.test_client(self)
+        response = tester.get('/accountInfo', content_type='html/text')
+        self.assertEqual(response.status_code,200)
+        print("Acccount Info Page Loaded successfully!")
 
 if __name__ == "__main__":
     unittest.main()

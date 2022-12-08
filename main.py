@@ -29,6 +29,13 @@ app.config['SECRET_KEY'] = '929AE2F2113856B6'
 
 # [START gae_python38_datastore_store_and_fetch_user_times]
 # [START gae_python3_datastore_store_and_fetch_user_times]
+
+"""
+    store_time() function to store the time the user logs in, to google cloud datastore.
+    :param email: The user's email (set by firebaseAuth)
+    :return: Returns a confirmation string
+"""
+
 def store_time(email, dt):
     entity = datastore.Entity(key=datastore_client.key('User', email, 'visit'))
     entity.update({
@@ -38,6 +45,12 @@ def store_time(email, dt):
     datastore_client.put(entity)
 
 
+"""
+    fetch_times() function to get user's login times from google cloud datastore.
+    :param email: The user's email (set by firebaseAuth)
+    :return: Returns a confirmation string
+"""
+
 def fetch_times(email, limit):
     ancestor = datastore_client.key('User', email)
     query = datastore_client.query(kind='visit', ancestor=ancestor)
@@ -46,6 +59,12 @@ def fetch_times(email, limit):
     times = query.fetch(limit=limit)
 
     return times
+
+"""
+    add_user_details() function add the user's data to the google cloud datastore.
+    :param user_id: The user's user id (set by firebaseAuth)
+    :return: Returns a confirmation string
+"""
 
 def add_user_details(gamertag, platform, genre, game, uid):
     entity = datastore.Entity(key=datastore_client.key('UserId', uid, 'userDetails'))
@@ -58,6 +77,12 @@ def add_user_details(gamertag, platform, genre, game, uid):
     })
 
     datastore_client.put(entity)
+
+"""
+    fetch_user_details() function gets all the user's data from the google cloud datastore.
+    :param user_id: The user's user id (set by firebaseAuth)
+    :return: Returns a confirmation string
+"""
 
 def fetch_user_details(uid, limit):
     ancestor = datastore_client.key('UserId', uid)
@@ -87,6 +112,10 @@ def delete_user_details(user_id):
     data = query.fetch()
     datastore_client.delete_multi(data)
 
+"""
+    The following functions define the routes for the site, passing in the correct values needed for the pages.
+    Accessing the mongoDB file if needed and recieving data from http requests made on the front end
+"""
 
 @app.route('/')
 @app.route('/index')
